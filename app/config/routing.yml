@@ -1,0 +1,7 @@
+finance_back_office:
+    resource: "@FinanceBackOfficeBundle/Resources/config/routing.yml"
+    prefix:   /
+
+finance_back_office_annotation_routes:
+    resource: "@FinanceBackOfficeBundle/Controller"
+    type: annotation
