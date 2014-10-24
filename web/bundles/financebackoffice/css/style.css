@@ -23,19 +23,19 @@ margin-bottom : 5px ;
 .filtrage table td
 {
 padding : 5px ;
-
 }
-.filtrage input, .formulaire select
+
+input,select
 {
 height: 30px;
 width : 200px ;
 border-radius: 5px;
 }
-.filtrage input[type=submit]
+input[type=submit]
 {
 background-color : #B3B3B3;
 }
-.filtrage input[type=submit]:active
+input[type=submit]:active
 {
 background-color : #CDCDCD;
 }
@@ -43,6 +43,7 @@ background-color : #CDCDCD;
 
 /* Bouttons icones */
 .edit_button {
+	display : inline-table ;
 	width: 30px;
 	height: 30px;
 	cursor: pointer;
@@ -59,6 +60,7 @@ background-color : #CDCDCD;
 }
 
 .show_button {
+	display : inline-table ;
 	width: 30px;
 	height: 30px;
 	cursor: pointer;
@@ -200,6 +202,11 @@ color : #818181 !important ;
 	padding: 80px 40px;
 }
 
+
+.CSSTable table td ul
+{
+list-style: none;
+}
 /*Tableau Stantard*/
 .CSSTable {
 	margin: 0px;

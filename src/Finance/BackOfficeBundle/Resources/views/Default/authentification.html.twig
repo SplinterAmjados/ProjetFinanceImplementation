@@ -1,0 +1,36 @@
+{% extends "::base.html.twig" %}
+
+{% block navigation %}
+
+{% endblock %}
+
+{% block content %}
+
+    <style>
+        .error{
+color: red;
+background-color: rgb(246, 193, 193);
+border: solid;
+padding : 10px;
+margin : 15px ;
+        }
+        .bouton_submit
+        {
+        
+        }
+                </style>
+<div style="margin: auto;width: 50%;text-align: center;">
+    
+    {% if error %}
+        <div class="error">{{ error.message|trans }}</div>
+{% endif %}
+
+<form method="POST" action="{{ path('login_check') }}">
+<label class="wsite-form-label">Identifiant <span class="form-required">*</span></label><br>
+<input name="_username" type="text" value="{{last_username}}"><br>
+<label class="wsite-form-label">Mot de passe <span class="form-required">*</span></label><br>
+<input  name="_password" type="password"><br>
+<input type="submit" value="Connexion">
+</form>
+</div>
+{% endblock %}

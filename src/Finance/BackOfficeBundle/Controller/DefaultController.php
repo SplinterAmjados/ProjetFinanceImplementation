@@ -33,8 +33,7 @@ class DefaultController extends Controller
      * @Route("/login",name="login")
      */
     public function loginAction()
-    {
-    
+    {    
     	$request = $this->getRequest();
     	$session = $request->getSession();
     	// get the login error if there is one

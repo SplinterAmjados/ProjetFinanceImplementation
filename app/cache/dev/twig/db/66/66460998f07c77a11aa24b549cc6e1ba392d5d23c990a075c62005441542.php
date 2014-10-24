@@ -136,11 +136,10 @@ class __TwigTemplate_db6666460998f07c77a11aa24b549cc6e1ba392d5d23c990a075c620054
 </div>
 <!-- end header-wrap -->
 
-<div style=\"witdh : 100% ; background: #fff; \">
-<div class=\"container\">
+
      
      ";
-        // line 100
+        // line 99
         $this->displayBlock('navigation', $context, $blocks);
         // line 138
         echo "
@@ -193,11 +192,12 @@ showWithScaleEffect('.details_box');
 ";
     }
 
-    // line 100
+    // line 99
     public function block_navigation($context, array $blocks = array())
     {
-        // line 101
-        echo "                   
+        // line 100
+        echo "  <div style=\"witdh : 100% ; background: #fff; \">
+<div class=\"container\">                 
 <div class=\"bar_nav_main\">
  
                         <div class=\"option_level1\" ><a href=\"";
@@ -310,6 +310,6 @@ showWithScaleEffect('.details_box');
 
     public function getDebugInfo()
     {
-        return array (  296 => 145,  293 => 144,  287 => 126,  281 => 116,  275 => 107,  269 => 104,  256 => 129,  248 => 126,  239 => 120,  230 => 116,  221 => 110,  213 => 107,  205 => 104,  200 => 101,  197 => 100,  182 => 165,  178 => 164,  174 => 163,  156 => 147,  154 => 144,  146 => 138,  144 => 100,  52 => 11,  48 => 10,  44 => 9,  40 => 8,  36 => 7,  32 => 6,  25 => 1,);
+        return array (  296 => 145,  293 => 144,  287 => 126,  281 => 116,  275 => 107,  269 => 104,  256 => 129,  248 => 126,  239 => 120,  230 => 116,  221 => 110,  213 => 107,  205 => 104,  199 => 100,  196 => 99,  181 => 165,  177 => 164,  173 => 163,  155 => 147,  153 => 144,  145 => 138,  143 => 99,  52 => 11,  48 => 10,  44 => 9,  40 => 8,  36 => 7,  32 => 6,  25 => 1,);
     }
 }

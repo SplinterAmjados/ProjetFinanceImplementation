@@ -189,9 +189,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Finance\\BackOfficeBundle\\Controller\\DefaultController::indexAction',  '_route' => 'accueil',);
         }
 
-        // login
-        if ($pathinfo === '/login') {
-            return array (  '_controller' => 'Finance\\BackOfficeBundle\\Controller\\DefaultController::loginAction',  '_route' => 'login',);
+        if (0 === strpos($pathinfo, '/login')) {
+            // login
+            if ($pathinfo === '/login') {
+                return array (  '_controller' => 'Finance\\BackOfficeBundle\\Controller\\DefaultController::loginAction',  '_route' => 'login',);
+            }
+
+            // login_check
+            if ($pathinfo === '/login_check') {
+                return array('_route' => 'login_check');
+            }
+
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
