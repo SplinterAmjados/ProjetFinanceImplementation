@@ -2,6 +2,45 @@
 	cursor: pointer;
 }
 
+/* Zone Filtrage */
+.filtrage
+{
+margin-bottom: 30px;
+background-color: #DCDCDC;
+padding: 20px 20px;
+border-radius: 15px;
+}
+.filtrage table
+{
+width : 100%;
+text-align : center ;
+}
+.filtrage table tr
+{
+margin-top : 5px ;
+margin-bottom : 5px ;
+}
+.filtrage table td
+{
+padding : 5px ;
+
+}
+.filtrage input, .formulaire select
+{
+height: 30px;
+width : 200px ;
+border-radius: 5px;
+}
+.filtrage input[type=submit]
+{
+background-color : #B3B3B3;
+}
+.filtrage input[type=submit]:active
+{
+background-color : #CDCDCD;
+}
+
+
 /* Bouttons icones */
 .edit_button {
 	width: 30px;
