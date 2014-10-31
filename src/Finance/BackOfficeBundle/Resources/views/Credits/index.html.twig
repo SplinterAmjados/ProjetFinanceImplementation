@@ -1,11 +1,91 @@
 {% extends "::base.html.twig" %}
 
 {% block g_credits %}
-
 active
-
 {% endblock %}
 
 {% block content %}
-<h3>Liste des Crédits</h3>
+<h1>Liste des Crédits</h1>
+
+
+<br>
+<div class="filtrage">
+<h3>Critères</h3>
+<form>
+<table>
+<tr>
+<td>
+ID Crédit<br>
+<input type="text" placeholder="Id Crédit">
+</td>
+<td>
+Num Compte<br>
+<input type="text" placeholder="N° Compte">
+</td>
+<td>
+NCIN Titulaire<br>
+<input type="text" placeholder="Ncin Titulaire">
+</td>
+</tr>
+<tr>
+<td>
+Type<br>
+<select>
+<option>I. Acquisition de terrain</option>
+<option>I. Acquisition d'un logement</option>
+<option>V. Achat d'une véhicule</option>
+<option>Consomation</option>
+<option>Investissement</option>
+</select>
+</td>
+<td>
+Montant<br>
+<input type="text" >
+</td>
+<td>
+Date dernière échéance<br>
+<input type="date" >
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td></td>
+<td>
+<input type="submit" value="Filtrer">
+</td>
+</tr>
+
+</table>
+</form>
+</div>
+
+
+
+<div class="CSSTable">
+<table>
+
+<tr>
+<td>ID Crédit</td>
+<td>ID Compte</td>
+<td>Type de crédit</td>
+<td>Montant</td>
+<td>Dernière échéance</td>
+<td width="70px">Actions</td>
+</tr>
+
+<tr>
+<td>CR0152148632489</td>
+<td>21321452665478925145</td>
+<td>Immobilier Acquisition d'un logement</td>
+<td>80 000</td>
+<td>01/06/2025</td>
+<td width="70px"><div class="show_button"></div><div class="edit_button"></div></td>
+</tr>
+
+
+
+</table>
+</div>
+
 {% endblock %}

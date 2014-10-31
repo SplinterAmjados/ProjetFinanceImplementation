@@ -10,29 +10,58 @@ display : none ;
 </style>
 
 
-<h3>Ajouter un client</h3>
+<h1>Ajouter un client</h1>
 <br><br>
+<div class="etapes_container">
+    <div class="titre_etape">{% block titre_etape %}Informations Client{% endblock %}</div>
+    <div class="etapes">
+        <div class="etape {% block etape1 %} etape_current {% endblock %} " >1</div>
+        <div class="etape {% block etape2 %} {% endblock %} ">2</div>
+    </div>
+</div>
+<br>
+<fieldset style="width : 400px ;">
+{% block contenu %}
+<table>
+<td width="50%">
 Nature Client
+</td>
+<td>
 <select id="nature_client">
-<option value="0">Choisir la nature du client</option>
 <option value="physique">Client Physique</option>
 <option value="morale">Client Moral</option>
 </select>
+</td>
+</table>
+<br>
 
-<br><br>
 
-<form id="form_new_client">
-
-</form>
-
-<div id="table_client_physique">
+<form id="form_new_client" action="{{ path('new_client_2') }}">
 <table  >
-<tr><td>NCIN/N°Passeport<span class="form-required">*</span></td><td><input type="text"></td></tr>
+<tr><td width="50%">NCIN/N°Passeport<span class="form-required">*</span></td><td><input type="text"></td></tr>
 <tr><td>Nom et Prénom<span class="form-required">*</span></td><td><input type="text"></td></tr>
 <tr><td>Nationnalité<span class="form-required">*</span></td><td><input type="text"></td></tr>
 <tr><td>Date de naissance<span class="form-required">*</span></td><td><input type="date"></td></tr>
 <tr><td>Adresse<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Ville<span class="form-required">*</span></td><td><input type="text"></td></tr>
+<tr><td>Ville<span class="form-required">*</span></td><td><select id="villes"></select></td></tr>
+<tr><td>Code Postal<span class="form-required">*</span></td><td><input type="text"></td></tr>
+<tr><td>Tél<span class="form-required">*</span></td><td><input type="text"></td></tr>
+</table>
+<input type="submit" value="Suivant" style="float : right ;">
+</form>
+
+{% endblock %}
+</fieldset>
+
+
+<div id="table_client_physique">
+<table  >
+<tr><td width="50%">NCIN/N°Passeport<span class="form-required">*</span></td><td><input type="text"></td></tr>
+<tr><td>Nom et Prénom<span class="form-required">*</span></td><td><input type="text"></td></tr>
+<tr><td>Nationnalité<span class="form-required">*</span></td><td><input type="text"></td></tr>
+<tr><td>Date de naissance<span class="form-required">*</span></td><td><input type="date"></td></tr>
+<tr><td>Adresse<span class="form-required">*</span></td><td><input type="text"></td></tr>
+<tr><td>Ville<span class="form-required">*</span></td><td><select id="villes"></select></td></tr>
 <tr><td>Code Postal<span class="form-required">*</span></td><td><input type="text"></td></tr>
 <tr><td>Tél<span class="form-required">*</span></td><td><input type="text"></td></tr>
 </table>
@@ -40,11 +69,11 @@ Nature Client
 
 <div id="table_client_morale">
 <table  >
-<tr><td>Identifiant<span class="form-required">*</span></td><td><input type="text"></td></tr>
+<tr><td width="50%">Identifiant<span class="form-required">*</span></td><td><input type="text"></td></tr>
 <tr><td>Raison Sociale<span class="form-required">*</span></td><td><input type="text"></td></tr>
 <tr><td>Id Gérant<span class="form-required">*</span></td><td><input type="text"></td></tr>
 <tr><td>Adresse<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Ville<span class="form-required">*</span></td><td><input type="text"></td></tr>
+<tr><td>Ville<span class="form-required">*</span></td><td><select id="villes"></select></td></tr>
 <tr><td>Code Postal<span class="form-required">*</span></td><td><input type="text"></td></tr>
 <tr><td>Tél<span class="form-required">*</span></td><td><input type="text"></td></tr>
 </table>
@@ -59,10 +88,16 @@ $('#nature_client').on('change',function(){
 	
 switch ($('#nature_client').val())
 {
-case 'physique' :  $('#form_new_client').html($('#table_client_physique').html()); $('#form_new_client').append('<input type="submit" value="Enregistrer">'); break ;
-case 'morale' : $('#form_new_client').html($('#table_client_morale').html()); $('#form_new_client').append('<input type="submit" value="Enregistrer">');break ;
+case 'physique' :  $('#form_new_client').html($('#table_client_physique').html()); $('#form_new_client').append('<input type="submit" value="Suivant" style="float : right ;">'); break ;
+case 'morale' : $('#form_new_client').html($('#table_client_morale').html()); $('#form_new_client').append('<input type="submit" value="Suivant" style="float : right ;">');break ;
 default :  $('#form_new_client').html('');break ;
 }
 });
+
+for(var i=0 ; i < villes.length ; i++)
+{
+$('#villes').append("<option>"+villes[i]+"</option>");
+}
+
 </script>
 {% endblock %}

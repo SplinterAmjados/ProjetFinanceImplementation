@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mon site - Authentification</title>
+    <title>{% block title %}SIB{% endblock %}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/png" href="../Gold_dollar.png" /> 
     <link rel="stylesheet" href="{{ asset('bundles/financebackoffice/css/sites.css') }}" type="text/css"/>
     <link rel='stylesheet' type='text/css'  href="{{ asset('bundles/financebackoffice/css/fancybox.css') }}"/>
     <link rel='stylesheet' type='text/css' href="{{ asset('bundles/financebackoffice/css/main_style.css') }}" title='wsite-theme-css'/>
@@ -81,12 +82,12 @@
 
   </head>
 <body class='no-header-page wsite-theme-light wsite-page-index'>
-<div id="header-wrap">
+<div id="header-wrap" style="background : none !important ; ">
     <div class="container">
         <table id="header">
             <tr>
                 <td id="logo"><span class='wsite-logo'><a href='index.html'><span
-                        id="wsite-title">Mon site</span></a></span></td>
+                        id="wsite-title" style="  color: white;  font-weight: bold; font-size: 50px;">U24</span></a></span></td>
             </tr>
         </table>
     </div>
@@ -97,7 +98,7 @@
 
      
      {% block navigation %}
-  <div style="witdh : 100% ; background: #fff; ">
+  <div style="witdh : 100% ; background: #fff; padding-top: 25px;">
 <div class="container">                 
 <div class="bar_nav_main">
  

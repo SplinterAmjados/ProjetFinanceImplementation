@@ -1,5 +1,35 @@
 {% extends "FinanceBackOfficeBundle:Comptes:index.html.twig" %}
 
 {% block content %}
-<h3>Ajouter un compte </h3>
+
+<h1>Ajouter un compte </h1>
+<br><br>
+
+<div class="etapes_container">
+    <div class="titre_etape">{% block titre_etape %}Choix de propriétaire{% endblock %}</div>
+    <div class="etapes">
+        <div class="etape {% block etape1 %} etape_current {% endblock %} " >1</div>
+        <div class="etape {% block etape2 %} {% endblock %} ">2</div>
+        <div class="etape {% block etape3 %} {% endblock %}">3</div>
+    </div>
+</div>
+
+<br>
+
+<fieldset >
+<table  >
+{% block table %}
+<form action="{{ path('new_compte_2') }}">
+<tr>
+<td>Id Client <span class="form-required">*</span></td><td width="70%"><input type="text"></td>
+</tr>
+<tr>
+<td colspan="2"><input type="submit" style="float: right ; margin-top : 10px ;" value="Suivant"></td>
+</tr>
+</form>
+{% endblock %}
+</table>
+</fieldset>
+
+
 {% endblock %}

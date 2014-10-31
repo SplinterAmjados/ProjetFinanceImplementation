@@ -25,4 +25,13 @@ class CreditsController extends Controller {
 		return $this->render("FinanceBackOfficeBundle:Credits:new.html.twig");
 	}
 	
+	/**
+	 * @Route("/new_credit_2",name="new_credit_2")
+	 * @Method("get")
+	 */
+	public function new2Action()
+	{
+		return $this->render("FinanceBackOfficeBundle:Credits:new2.html.twig");
+	}
+	
 }

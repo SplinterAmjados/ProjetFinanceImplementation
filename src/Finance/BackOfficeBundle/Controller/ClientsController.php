@@ -26,5 +26,14 @@ class ClientsController extends Controller {
 	{
 		return $this->render("FinanceBackOfficeBundle:Clients:new.html.twig");
 	}
+	
+	/**
+	 * @Route("/new_client_2",name="new_client_2")
+	 * @Method("get")
+	 */
+	public function new2Action()
+	{
+		return $this->render("FinanceBackOfficeBundle:Clients:new2.html.twig");
+	}
 
 }

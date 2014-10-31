@@ -1,0 +1,35 @@
+{% extends "FinanceBackOfficeBundle:Comptes:new.html.twig"  %}
+
+{% block titre_etape %}
+Confirmation
+{% endblock %}
+
+{% block etape1 %} {% endblock %}
+
+{% block etape3 %} etape_current {% endblock %}
+
+{% block table %}
+<table class="table_details">
+<tr >
+	<td>ID Compte</td>
+	<td>00125483365874</td>
+</tr>
+<tr>
+	<td>Titulaire</td>
+	<td>Qods KHOUJA</td>
+</tr>
+<tr>
+	<td>Type de Compte</td>
+	<td>Epargne</td>
+</tr>
+<tr>
+	<td>Nature</td>
+	<td>Devise</td>
+</tr>
+<tr>
+<td colspan="2"> 
+<input type="submit" style="float : right ;">
+</td>
+</tr>
+</table>
+{% endblock %}

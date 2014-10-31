@@ -1,0 +1,46 @@
+{% extends "FinanceBackOfficeBundle:Credits:new.html.twig" %}
+
+{% block titre_etape %}
+Confirmation
+{% endblock %}
+
+{% block etape1 %}
+{% endblock %}
+
+{% block etape2 %}
+etape_current
+{% endblock %}
+
+{% block contenu %}
+<table class="table_details">
+<tr>
+	<td>Type de Crédit</td>
+	<td>Immobilier : Acquisition d'un logement</td>	
+</tr>
+<tr>
+	<td>ID Compte</td>
+	<td>123456789112345</td>
+</tr>
+<tr>
+	<td>Titulaire du compte</td>
+	<td>Mariem NFAIDH</td>
+</tr>
+<tr>
+	<td>Montant</td>
+	<td>150 000</td>
+</tr>
+<tr>
+	<td>Date de dérniere écheance</td>
+	<td>01/06/2030</td>
+</tr>
+<tr>
+	<td>Tranche</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>Taux d'intêret</td>
+	<td>4.5%</td>
+</tr>
+</table>
+<input type="submit" value="Enregistrer" style="float : right ;">
+{% endblock %}

@@ -1,5 +1,50 @@
 {% extends "FinanceBackOfficeBundle:Credits:index.html.twig" %}
 
 {% block content %}
-<h3>Ajouter un crédit </h3>
+<h1>Ajouter un crédit </h1>
+<br><br>
+
+<div class="etapes_container">
+    <div class="titre_etape">{% block titre_etape %}Informations{% endblock %}</div>
+    <div class="etapes">
+        <div class="etape {% block etape1 %} etape_current {% endblock %} " >1</div>
+        <div class="etape {% block etape2 %} {% endblock %} ">2</div>
+    </div>
+</div>
+
+<br>
+
+<fieldset style="width : 400px ;">
+<table  >
+{% block contenu %}
+<form action="{{ path('new_credit_2') }}">
+<tr>
+<td>Type de crédit <span class="form-required">*</span></td><td width="70%"><select>
+<option>I. Acquisition de terrain</option>
+<option>I. Acquisition d'un logement</option>
+<option>V. Achat d'une véhicule</option>
+<option>Consomation</option>
+<option>Investissement</option>
+</select></td>
+</tr>
+<tr>
+<td>Id Compte <span class="form-required">*</span></td><td ><input type="text"></td>
+</tr>
+<tr>
+<td>Montant<span class="form-required">*</span></td>
+<td><input type="text"></td>
+</tr>
+<tr>
+<td>Date déniere écheance<span class="form-required">*</span></td><td><input type="date"></td>
+</tr>
+<tr><td>Tranche<span class="form-required">*</span></td><td><input type="text"></td></tr>
+<tr><td>Taux d'intêret<span class="form-required">*</span></td><td><input type="text"></td></tr>
+<tr>
+<td colspan="2"><input type="submit" style="float: right ; margin-top : 10px ;" value="Suivant"></td>
+</tr>
+</form>
+{% endblock %}
+</table>
+</fieldset>
+
 {% endblock %}

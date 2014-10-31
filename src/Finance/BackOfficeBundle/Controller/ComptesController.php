@@ -26,4 +26,22 @@ class ComptesController extends Controller {
 		return $this->render("FinanceBackOfficeBundle:Comptes:new.html.twig");
 	}
 	
+	/**
+	 * @Route("/new_compte_2",name="new_compte_2")
+	 * @Method("get")
+	 */
+	public function new2Action()
+	{
+		return $this->render("FinanceBackOfficeBundle:Comptes:new2.html.twig");
+	}
+	
+	/**
+	 * @Route("/new_compte_3",name="new_compte_3")
+	 * @Method("get")
+	 */
+	public function new3Action()
+	{
+		return $this->render("FinanceBackOfficeBundle:Comptes:new3.html.twig");
+	}
+	
 }

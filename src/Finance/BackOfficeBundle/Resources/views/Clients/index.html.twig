@@ -1,5 +1,16 @@
 {% extends "::base.html.twig" %}
 
+{% block javascript %}
+{{ parent() }}
+<script src="{{ asset('bundles/financebackoffice/js/villes.js') }}"></script>
+<script>
+for(var i=0 ; i < villes.length ; i++)
+{
+$('#villes').append("<option>"+villes[i]+"</option>");
+}
+</script>
+{% endblock %}
+
 {% block g_clients %}
 
 active
@@ -24,7 +35,7 @@ NCIN<br>
 </td>
 <td>
 Ville<br>
-<input type="text" placeholder="Ville">
+<select id="villes">
 </td>
 </tr>
 
@@ -95,7 +106,7 @@ N° Compte<br>
             <div >
                 <div class="close_details_box_button clickable"></div>
                 <div class="details">
-                
+  <center>           
                 <!--  A Supprimer -->
                 <h2>Informations du Client</h2>
 <br><br>
@@ -117,7 +128,7 @@ N° Compte<br>
 <div >
 <div class="edit_button"></div><div class="print_button"></div>
 </div>
-                
+    </center>               
                 
                 </div>
              </div>

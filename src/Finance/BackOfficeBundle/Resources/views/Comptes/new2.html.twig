@@ -1,0 +1,35 @@
+{% extends "FinanceBackOfficeBundle:Comptes:new.html.twig"  %}
+
+{% block titre_etape %}
+Type de Compte
+{% endblock %}
+
+{% block etape1 %} {% endblock %}
+
+{% block etape2 %} etape_current {% endblock %}
+
+
+
+{% block table %}
+<form action="{{ path('new_compte_3') }}">
+<tr>
+<td>Type <span class="form-required">*</span></td><td width="70%"><select>
+<option>Courant</option>
+<option>Epargne</option>
+</select></td>
+</tr>
+<tr>
+<td>Nature</td>
+<td>
+<select disabled>
+<option>Compte Dinar</option>
+<option>Compte Devise</option>
+</select>
+</td>
+</tr>
+<tr>
+<td colspan="2"><input type="submit" style="float: right ; margin-top : 10px ;" value="Suivant"></td>
+</tr>
+</form>
+
+{% endblock %}
