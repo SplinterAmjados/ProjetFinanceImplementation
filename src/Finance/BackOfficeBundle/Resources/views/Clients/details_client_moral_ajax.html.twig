@@ -1,0 +1,20 @@
+ <center>  
+<h2>Informations du Client</h2>
+<br><br>
+<table class="details_table">
+
+<tr><td>Identifiant Société</td><td>{{ client.idSoc }}</td></tr>
+<tr><td>Raison Social</td><td>{{ client.raisonSocial }}</td></tr>
+<tr><td>Adresse</td><td>{{ client.adresse }}</td></tr>
+<tr><td>Tél</td><td>{{ client.tel }}</td></tr>
+<tr><td>Gérant</td><td>{{ client.gerant.nom|upper }} {{ client.gerant.prenom }}  </td></tr>
+<tr><td>Liste des comptes</td><td><ul>
+{% for compte in client.comptes %}
+									<li>{{ compte.type }}: {{ compte.numCompte }} </li>
+{% endfor %}
+								  </ul></td></tr>
+<tr><td>Date d'abonnement</td><td>{{ client.dateCreation|date('Y/m/d H:i:s') }}</td></tr>
+<tr><td>Agence</td><td>{{ client.agence }}</td></tr>
+</table>
+<div class="edit_button"></div><div class="print_button"></div>
+</center>

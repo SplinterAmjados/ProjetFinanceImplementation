@@ -2,6 +2,7 @@
 
 {% block content %}
 
+
 <h1>Ajouter un compte </h1>
 <br><br>
 
@@ -10,26 +11,108 @@
     <div class="etapes">
         <div class="etape {% block etape1 %} etape_current {% endblock %} " >1</div>
         <div class="etape {% block etape2 %} {% endblock %} ">2</div>
-        <div class="etape {% block etape3 %} {% endblock %}">3</div>
     </div>
 </div>
 
 <br>
 
-<fieldset >
-<table  >
+
 {% block table %}
-<form action="{{ path('new_compte_2') }}">
-<tr>
-<td>Id Client <span class="form-required">*</span></td><td width="70%"><input type="text"></td>
+<form action="{{ path('new_compte_2') }}" method="POST">
+<fieldset >
+<table style="width : 400px ;" >
+<tr >
+<td>Id Propriétaire 1 <span class="form-required">*</span></td><td width="70%">
+<input id="p1" name="proprietaires[]" type="text"></td>
 </tr>
+
+<tr class="newPropClass" style="cursor : pointer ;">
+<td colspan=2 onClick="ajouterUnAutreProp()">
+<img style="width : 15px ; height : 15px ;" src="{{ asset('bundles/financebackoffice/images/plus.png') }}" >
+Ajouter un autre proprietaire</td>
+</tr>
+
+<tr >
+<td>Type du compte<span class="form-required">*</span></td><td width="70%">
+<select id="type" name="type">
+<option >Choisissez le type</option>
+<option value="epargne">Epargne</option>
+<option value="courant">Courant</option>
+</select>
+</td>
+</tr>
+
 <tr>
 <td colspan="2"><input type="submit" style="float: right ; margin-top : 10px ;" value="Suivant"></td>
 </tr>
-</form>
-{% endblock %}
+
+
 </table>
 </fieldset>
+</form>
+{% endblock %}
 
+{% endblock %}
 
+{% block javascript %}
+{{ parent() }}
+<script>
+
+function ajouterUnAutreProp()
+{
+var n = $("input[name='proprietaires[]']").length ;	
+$("<tr ><td>Id Propriétaire "+(n+1)+"<span class='form-required'>*</span></td><td width='70%'><input id='p"+(n+1)+"' name='proprietaires[]' type='text'></td></tr>").insertBefore('.newPropClass');
+
+var id = "#p"+(n+1);
+
+$(id).autocomplete({
+    source: function(requete,reponse){
+        $.ajax(
+                {
+                    url : '{{ path('get_physiques_clients_json') }}',
+                    dataType : 'json' ,
+                    data : {
+						start_With : $(id).val(),
+                        },
+                    type : "post",
+                    success : function(donnees)
+                    {
+                    	reponse($.map(donnees, function(objet){
+                    		return { label:objet.nom+" "+objet.prenom+" ("+objet.realIdClient+")" , value:objet.id} ;
+                        }));
+                    }
+                }
+        );
+    },
+    minLength: 2 }
+);
+
+}
+
+$("#p1").autocomplete({
+    source: function(requete,reponse){
+        $.ajax(
+                {
+                    url : '{{ path('get_physiques_clients_json') }}',
+                    dataType : 'json' ,
+                    data : {
+						start_With : $("#p1").val(),
+                        },
+                    type : "post",
+                    success : function(donnees)
+                    {
+                    	reponse($.map(donnees, function(objet){   
+                        	                   	
+                            return { label:objet.nom+" "+objet.prenom+" ("+objet.realIdClient+")" , value:objet.id} ;
+                             
+                        }));
+                    }
+                }
+        );
+    },
+
+    minLength: 2 }
+);
+
+</script>
 {% endblock %}

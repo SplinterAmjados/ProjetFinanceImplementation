@@ -8,3 +8,20 @@ function showWithScaleEffect(selector)
     options = { percent:100 };
     $(selector).show(selectedEffect, options, 500);
 }
+
+function getDetails(url)
+{
+$('.details').html("");	
+$('.loadingZone').show();
+
+$.ajax({
+	url : url ,
+	type : "get",
+	success : function(data)
+	{
+		$('.loadingZone').hide();
+		$('.details').html(data);
+	}
+});
+
+}

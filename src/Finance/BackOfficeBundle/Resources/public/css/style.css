@@ -1,3 +1,45 @@
+ .debit_button
+{
+display: inline-table;
+width: 30px;
+height: 30px;
+cursor: pointer;
+background-image: url('../images/minus.png');
+background-size: cover;
+}
+.credit_button
+{
+display: inline-table;
+width: 30px;
+height: 30px;
+cursor: pointer;
+background-image: url('../images/plus.png');
+background-size: cover;
+} 
+  
+    .client_moral_criteres {
+        display: none;
+    }
+
+    .client_physique_criteres {
+        display: none;
+    }
+
+/* Pagination */
+
+.paginationdiv { margin-top : 30px ; width : 450px ; margin-left : auto ; margin-right : auto ; }
+ul.tsc_pagination { margin:4px 0; padding:0px;  overflow:hidden; font:12px 'Tahoma'; list-style-type:none; }
+ul.tsc_pagination li { float:left; margin:0px; padding:0px; margin-left:5px; }
+ul.tsc_pagination li:first-child { margin-left:0px; }
+ul.tsc_pagination li a { color:black; display:block; text-decoration:none; padding:7px 10px 7px 10px; }
+ul.tsc_pagination li a img { border:none; }
+
+ul.tsc_pagination li a { color:#707070; border-color:#CFCFCF; background:#FAFAFA; }
+ul.tsc_pagination li a:hover,
+ul.tsc_pagination li a.current { text-shadow:0px 1px #636363; border-color:#5D5D5D; background:#777777; background:-moz-linear-gradient(top, #C0C0C0 1px, #929292 1px, #777777); background:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0.02, #C0C0C0), color-stop(0.02, #929292), color-stop(1, #777777)); }
+
+
+
 .clickable {
 	cursor: pointer;
 }
@@ -141,7 +183,7 @@ background-color : #CDCDCD;
 	background-size: cover;
 }
 
-.show_button:hover,.edit_button:hover,.print_button:hover {
+.show_button:hover,.edit_button:hover,.print_button:hover,.debit_button:hover,.credit_button:hover {
 	width: 31px;
 }
 
@@ -205,20 +247,27 @@ margin-right : 10px ;
 display : inline-block ;
 }
 
+     @-webkit-keyframes banim
+    {
+        from { padding-top: 0px ; }
+        to { padding-top: 5px; }
+    }
+
 .bar_nav_main>.option_level1:hover .dropDownList
 {
 
 display : block ;
-animation-name : transistionMenu;
-animation-duration : 2s;
-animation-iteration-count : 1 ;
-animation-timing-function : linear ;
+-webkit-animation-name: banim;
+    -webkit-animation-duration: 100ms;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-fill-mode : forwards ;
 }
 
 .dropDownList {
 	display :none ;
 	position: absolute;
-	padding-top : 5px ;
+	padding-top : 0px ;
 	width: 130px;
 }
 

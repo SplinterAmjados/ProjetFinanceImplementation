@@ -1,5 +1,6 @@
 imports:
     - { resource: parameters.yml }
+    - { resource: site_parameters.yml }
     - { resource: security.yml }
 
 framework:
@@ -70,3 +71,13 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     "C:\\wkhtmltopdf\\bin\\wkhtmltopdf"
+        options:    []
+    image:
+        enabled:    false
+        binary:     /usr/local/bin/wkhtmltoimage
+        options:    []

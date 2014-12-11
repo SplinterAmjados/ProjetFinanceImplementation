@@ -1,0 +1,24 @@
+
+<style>
+ul.tsc_pagination li a.disabledPaginatorButton:hover
+{
+background : none !important ;
+cursor : context-menu ;
+text-shadow : none ;
+}
+</style>
+{% if nbrePages == 0 %} {% set nbrePages = 1  %} {% endif %}
+<div class="paginationdiv">
+<ul class="tsc_pagination tsc_paginationB">
+  <li><a {% if  currentPage != 0   %} href="{{ baseUrl }}?page=0" class="first" {% else %} href="#" class="first disabledPaginatorButton" {% endif %}>Début</a></li>
+  <li><a {% if  currentPage != 0   %} href="{{ baseUrl }}?page={{ currentPage - 1 }}" class="previous" {% else %} href="#" class="previous disabledPaginatorButton" {% endif %}>&lt;&lt; Précédent</a></li>
+  {% for i in 1..nbrePages  %}
+  <li>
+  <a  {% if currentPage+1 == i %} class="current" href="#" {% else %} href="{{ baseUrl }}?page={{ i -1 }}" {% endif %}>
+  {{ i }}</a>
+  </li>
+  {% endfor %}
+  <li><a {% if  currentPage != (nbrePages - 1)   %}  href="{{ baseUrl }}?page={{ currentPage +1 }}" class="next" {% else %} class="next disabledPaginatorButton" href="#" {% endif %}>Suivant >></a></li>
+  <li><a{% if  currentPage != (nbrePages - 1)   %}  href="{{ baseUrl }}?page={{ nbrePages - 1 }}" class="last" {% else %} class="last disabledPaginatorButton" href="#" {% endif %}>Fin</a></li>
+</ul>
+</div>

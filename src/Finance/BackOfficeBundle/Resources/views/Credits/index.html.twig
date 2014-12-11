@@ -7,7 +7,7 @@ active
 {% block content %}
 <h1>Liste des Crédits</h1>
 
-
+<!-- Filtrage -->
 <br>
 <div class="filtrage">
 <h3>Critères</h3>
@@ -59,7 +59,7 @@ Date dernière échéance<br>
 </table>
 </form>
 </div>
-
+<!-- Fin Filtrage -->
 
 
 <div class="CSSTable">
@@ -67,25 +67,42 @@ Date dernière échéance<br>
 
 <tr>
 <td>ID Crédit</td>
-<td>ID Compte</td>
+<td>Num Compte</td>
 <td>Type de crédit</td>
-<td>Montant</td>
+<td>Montant (Dt)</td>
 <td>Dernière échéance</td>
 <td width="70px">Actions</td>
 </tr>
-
+{% for credit in credits %}
 <tr>
-<td>CR0152148632489</td>
-<td>21321452665478925145</td>
-<td>Immobilier Acquisition d'un logement</td>
-<td>80 000</td>
-<td>01/06/2025</td>
-<td width="70px"><div class="show_button"></div><div class="edit_button"></div></td>
+<td>{{ credit.id }}</td>
+<td>{{ credit.compte.numCompte }}</td>
+<td>{{ credit.types[credit.type] }}</td>
+<td>{{ credit.montant|number_format(3,',',' ') }}</td>
+<td>{{ credit.dateDerniereEcheance|date('d/m/Y') }}</td>
+<td width="70px">
+	<div onClick="getDetails('{{ path("details_credit" , {'id' : credit.id}  ) }}')" class="show_button"></div>
+	<div class="edit_button"></div>
+</td>
 </tr>
-
+{% endfor %}
 
 
 </table>
 </div>
+
+<!-- Details Box -->
+        <div class="details_box">
+            <div >
+                <div class="close_details_box_button clickable"></div>
+                <div class="loadingZone" style="position: relative;top: 100px;left: 50%;">
+                <img src="{{ asset('bundles/financebackoffice/images/loading.gif') }}" >
+                </div>
+                <div class="details">                  
+                
+                </div>
+             </div>
+        </div>
+<!-- End Details Box -->  
 
 {% endblock %}

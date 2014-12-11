@@ -1,35 +1,41 @@
 {% extends "FinanceBackOfficeBundle:Comptes:new.html.twig"  %}
 
 {% block titre_etape %}
-Type de Compte
+Confirmation
 {% endblock %}
 
 {% block etape1 %} {% endblock %}
 
 {% block etape2 %} etape_current {% endblock %}
 
-
-
 {% block table %}
-<form action="{{ path('new_compte_3') }}">
-<tr>
-<td>Type <span class="form-required">*</span></td><td width="70%"><select>
-<option>Courant</option>
-<option>Epargne</option>
-</select></td>
+<form action="{{ path('confim_ajout_compte' , { 'id' : compte.numCompte } ) }}" method="post">
+<fieldset >
+<table style="width : 400px ;" >
+<tr >
+	<td>ID Compte</td>
+	<td>{{ compte.numCompte }}</td>
 </tr>
 <tr>
-<td>Nature</td>
-<td>
-<select disabled>
-<option>Compte Dinar</option>
-<option>Compte Devise</option>
-</select>
+	<td>Titulaire(s)</td>
+	<td>
+	
+	{% for p in compte.proprietaires %}
+	{{ p.nomPrenomOuRSocial }}<br>
+	{% endfor %}
+
+	</td>
+</tr>
+<tr>
+	<td>Type de Compte</td>
+	<td>{% if compte.type == 'CE' %}Compte Epargne {% else %}Compte Courant{% endif %}</td>
+</tr>
+<tr>
+<td colspan="2"> 
+<input type="submit" style="float : right ;">
 </td>
 </tr>
-<tr>
-<td colspan="2"><input type="submit" style="float: right ; margin-top : 10px ;" value="Suivant"></td>
-</tr>
+</table>
+</fieldset>
 </form>
-
 {% endblock %}

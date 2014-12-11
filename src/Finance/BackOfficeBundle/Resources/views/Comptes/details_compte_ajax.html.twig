@@ -1,0 +1,30 @@
+ <center>  
+<h2>Informations du Compte</h2>
+<br><br>
+<table class="details_table">
+
+<tr><td>N° Compte</td><td>{{ compte.numCompte }}</td></tr>
+<tr><td>Date de création</td><td>{{ compte.dateCreation|date('Y/m/d H:i:s') }}</td></tr>
+<tr><td>Solde</td><td>{{ compte.solde }} Dt</td></tr>
+<tr><td>Type</td><td>{% if compte.type == 'CC' %}Compte Courant {% elseif compte.type == 'CE' %}Compte Epargne{% endif %}</td></tr>
+
+<tr><td>Liste des propriétaires</td><td><ul>
+{% for titulaire in compte.proprietaires %}
+<li>
+{{ titulaire.nomPrenomOuRSocial|title }} 
+</li>
+{% endfor %}
+</ul></td></tr>
+
+<tr><td>Transactions récentes</td><td><ul>
+{% for transaction in compte.transactions %}
+<li>
+[{{ transaction.date|date('Y/m/d H:i:s') }}]   {{ transaction.type }}  {{ transaction.montant }} Dt
+</li>
+{% endfor %}
+</ul></td></tr>
+
+<tr><td>Etat</td><td>{% if compte.active %} Actif {% else %} Bloqué {% endif %}</td></tr>
+</table>
+<div class="edit_button"></div><div class="print_button"></div>
+</center>

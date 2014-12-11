@@ -1,4 +1,8 @@
+#services:
+#    clientrepository:
+#        class: Finance\BackOfficeBundle\Repository\ClientRepository
+#        arguments: ["@doctrine.orm.entity_manager"]
 services:
-#    finance_back_office.example:
-#        class: Finance\BackOfficeBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    tokenValidatorService:
+        class: Finance\BackOfficeBundle\Services\ValidateRestTokenService
+        arguments: ["@doctrine.orm.entity_manager","@request_stack"]

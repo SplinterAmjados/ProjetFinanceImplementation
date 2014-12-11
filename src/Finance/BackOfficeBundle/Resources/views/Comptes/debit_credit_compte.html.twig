@@ -1,0 +1,44 @@
+{% extends "FinanceBackOfficeBundle:Comptes:index.html.twig" %}
+
+{% block content %}
+<div class="errors"  style="display : {% if erreurs|length > 0 %} block {% else %} none {% endif %};">
+<ul>
+{% for error in erreurs %}
+<li>{{ error }}</li>
+{% endfor %}
+</ul>
+</div>
+
+
+
+<form  method="POST">
+<fieldset >
+<table style="width : 400px ;" >
+
+<tr>
+	<td>Num Compte</td>
+	<td>{{ compte.numCompte }}</td>
+</tr>
+<tr>
+	<td>Solde Actuel</td>
+	<td>{{ compte.solde }} Dt</td>
+</tr>
+<tr>
+	<td>Action</td>
+	<td><select name="action">
+		<option {% if action =='debit' %} selected {% endif %} value="debit">Débit</option>
+		<option {% if action =='credit' %} selected {% endif %} value="credit">Crédit</option>	
+	</select></td>
+</tr>
+<tr>
+	<td>Montant</td>
+	<td><input name="montant" ></td>
+</tr>
+<tr>
+<td colspan=2><input type="submit" value="confirmer"></td>
+</tr>
+</table>
+</fieldset>
+</form>
+
+{% endblock %}

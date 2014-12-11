@@ -1,0 +1,56 @@
+{% extends "FinanceBackOfficeBundle:Credits:new.html.twig" %}
+
+{% block titre_etape %}
+Confirmation
+{% endblock %}
+
+{% block etape1 %}
+{% endblock %}
+
+{% block etape3 %}
+etape_current
+{% endblock %}
+
+{% block contenu %}
+<form method="POST" action="{{ path('confim_new_credit',{ 'numCompte' : credit.compte.numCompte }) }}">
+<table class="table_details">
+<tr>
+	<td>Type de Crédit</td>
+	<td>{{ credit.types[credit.type] }}</td>	
+</tr>
+<tr>
+	<td>ID Compte</td>
+	<td>{{ credit.compte.numCompte }}</td>
+</tr>
+<tr>
+	<td>Titulaire du compte</td>
+	<td>
+	{% for p in credit.compte.proprietaires %}
+		{{ p.nomPrenomOuRSocial }}<br>
+	{% endfor %}
+	</td>
+</tr>
+<tr>
+	<td>Montant</td>
+	<td>{{ credit.montant|number_format(3,',',' ') }} Dt</td>
+</tr>
+<tr>
+	<td>Date de premiere écheance</td>
+	<td>{{ credit.datePremiereEcheance|date('d/m/Y') }}</td>
+</tr>
+<tr>
+	<td>Date de dérniere écheance</td>
+	<td>{{ credit.dateDerniereEcheance|date('d/m/Y') }}</td>
+</tr>
+<tr>
+	<td>Tranche</td>
+	<td>{{ credit.tranche|number_format(3,',',' ') }} Dt</td>
+</tr>
+<tr>
+	<td>Taux d'intêret</td>
+	<td>{{ credit.tauxInteret }}%</td>
+</tr>
+</table>
+<input type="submit" value="Enregistrer" style="float : right ;">
+</form>
+{% endblock %}

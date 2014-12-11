@@ -28,6 +28,7 @@ Nature Client
 </td>
 <td>
 <select id="nature_client">
+<option value="">Choisissez nature client</option>
 <option value="physique">Client Physique</option>
 <option value="morale">Client Moral</option>
 </select>
@@ -35,49 +36,22 @@ Nature Client
 </table>
 <br>
 
+<div id="form_displayed">
+</div>
 
-<form id="form_new_client" action="{{ path('new_client_2') }}">
-<table  >
-<tr><td width="50%">NCIN/N°Passeport<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Nom et Prénom<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Nationnalité<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Date de naissance<span class="form-required">*</span></td><td><input type="date"></td></tr>
-<tr><td>Adresse<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Ville<span class="form-required">*</span></td><td><select id="villes"></select></td></tr>
-<tr><td>Code Postal<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Tél<span class="form-required">*</span></td><td><input type="text"></td></tr>
-</table>
-<input type="submit" value="Suivant" style="float : right ;">
-</form>
-
-{% endblock %}
 </fieldset>
 
-
 <div id="table_client_physique">
-<table  >
-<tr><td width="50%">NCIN/N°Passeport<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Nom et Prénom<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Nationnalité<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Date de naissance<span class="form-required">*</span></td><td><input type="date"></td></tr>
-<tr><td>Adresse<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Ville<span class="form-required">*</span></td><td><select id="villes"></select></td></tr>
-<tr><td>Code Postal<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Tél<span class="form-required">*</span></td><td><input type="text"></td></tr>
-</table>
+{% include 'FinanceBackOfficeBundle:Clients:form_client_physique.html.twig' with { 'form' : form_physique } %}
 </div>
 
 <div id="table_client_morale">
-<table  >
-<tr><td width="50%">Identifiant<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Raison Sociale<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Id Gérant<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Adresse<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Ville<span class="form-required">*</span></td><td><select id="villes"></select></td></tr>
-<tr><td>Code Postal<span class="form-required">*</span></td><td><input type="text"></td></tr>
-<tr><td>Tél<span class="form-required">*</span></td><td><input type="text"></td></tr>
-</table>
+{% include 'FinanceBackOfficeBundle:Clients:form_client_moral.html.twig' with { 'form' : form_moral } %}
 </div>
+
+{% endblock %}
+
+
 {% endblock %}
 
 
@@ -88,15 +62,16 @@ $('#nature_client').on('change',function(){
 	
 switch ($('#nature_client').val())
 {
-case 'physique' :  $('#form_new_client').html($('#table_client_physique').html()); $('#form_new_client').append('<input type="submit" value="Suivant" style="float : right ;">'); break ;
-case 'morale' : $('#form_new_client').html($('#table_client_morale').html()); $('#form_new_client').append('<input type="submit" value="Suivant" style="float : right ;">');break ;
-default :  $('#form_new_client').html('');break ;
+case 'physique' :  $('#form_displayed').html($('#table_client_physique').html());  break ;
+case 'morale' : $('#form_displayed').html($('#table_client_morale').html());break ;
+default :  $('#form_displayed').html('');break ;
 }
 });
 
+$('select.villes').append("<option>Choisissez une ville</option>");
 for(var i=0 ; i < villes.length ; i++)
 {
-$('#villes').append("<option>"+villes[i]+"</option>");
+$('select.villes').append("<option value='"+villes[i]+"'>"+villes[i]+"</option>");
 }
 
 </script>

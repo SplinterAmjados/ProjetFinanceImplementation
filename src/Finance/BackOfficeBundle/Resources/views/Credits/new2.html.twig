@@ -1,7 +1,7 @@
 {% extends "FinanceBackOfficeBundle:Credits:new.html.twig" %}
 
 {% block titre_etape %}
-Confirmation
+Informations
 {% endblock %}
 
 {% block etape1 %}
@@ -11,36 +11,41 @@ Confirmation
 etape_current
 {% endblock %}
 
+
 {% block contenu %}
-<table class="table_details">
+{{ form_start(form,{ 'method' : 'post' }) }}
 <tr>
-	<td>Type de Crédit</td>
-	<td>Immobilier : Acquisition d'un logement</td>	
+<td>Type de crédit <span class="form-required">*</span></td><td width="60%">
+{{ form_widget(form.type) }}
+</td>
 </tr>
 <tr>
-	<td>ID Compte</td>
-	<td>123456789112345</td>
+<td>Montant<span class="form-required">*</span></td>
+<td>
+{{ form_widget(form.montant) }}
+</td>
 </tr>
 <tr>
-	<td>Titulaire du compte</td>
-	<td>Mariem NFAIDH</td>
+<td>Date Première écheance<span class="form-required">*</span></td><td>
+{{ form_widget(form.datePremiereEcheance , { 'attr' : { 'type' : 'date' } }) }}
+</td>
 </tr>
 <tr>
-	<td>Montant</td>
-	<td>150 000</td>
+<td>Date déniere écheance<span class="form-required">*</span></td><td>
+{{ form_widget(form.dateDerniereEcheance ,  { 'attr' : { 'placeholder' : 'jj/mm/aaaa' } }) }}
+</td>
 </tr>
+<tr><td>Tranche<span class="form-required">*</span></td><td>
+{{ form_widget(form.tranche) }}
+</td></tr>
+<tr><td>Taux d'intêret<span class="form-required">*</span></td><td>
+{{ form_widget(form.tauxInteret) }}
+</td></tr>
+<tr><td>Autres détails<span class="form-required">*</span></td><td>
+{{ form_widget(form.autreDetails) }}
+</td></tr>
 <tr>
-	<td>Date de dérniere écheance</td>
-	<td>01/06/2030</td>
+<td colspan="2"><input type="submit" style="float: right ; margin-top : 10px ;" value="Suivant"></td>
 </tr>
-<tr>
-	<td>Tranche</td>
-	<td>500</td>
-</tr>
-<tr>
-	<td>Taux d'intêret</td>
-	<td>4.5%</td>
-</tr>
-</table>
-<input type="submit" value="Enregistrer" style="float : right ;">
+{{ form_end(form) }}
 {% endblock %}

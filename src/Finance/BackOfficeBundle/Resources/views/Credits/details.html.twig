@@ -1,0 +1,25 @@
+ <center>  
+<h2>Informations du Crédit</h2>
+<br><br>
+<table class="details_table">
+
+<tr><td>Id Crédit</td><td>{{ credit.id }}</td></tr>
+<tr><td>Num Compte</td><td>{{ credit.compte.numCompte }}</td></tr>
+<tr><td>Liste des propriétaires</td><td><ul>
+{% for titulaire in credit.compte.proprietaires %}
+<li>
+{{ titulaire.nomPrenomOuRSocial|title }} 
+</li>
+{% endfor %}
+</ul></td></tr>
+<tr><td>Type</td><td>{{ credit.types[credit.type] }}</td></tr>
+<tr><td>Montant</td><td>{{ credit.montant }} Dt</td></tr>
+<tr><td>Tranche</td><td>{{ credit.tranche }} Dt</td></tr>
+<tr><td>Taux d'intêret</td><td>{{ credit.tauxInteret }} Dt</td></tr>
+<tr><td>Date de création</td><td>{{ credit.dateCredit|date('d/m/Y') }}</td></tr>
+<tr><td>Date de première écheance</td><td>{{ credit.datePremiereEcheance|date('d/m/Y') }}</td></tr>
+<tr><td>Date de dernière écheance</td><td>{{ credit.dateDerniereEcheance|date('d/m/Y') }}</td></tr>
+<tr><td>Autres détails</td><td>{{ credit.autreDetails }}</td></tr>
+</table>
+<div class="edit_button"></div><div class="print_button"></div>
+</center>

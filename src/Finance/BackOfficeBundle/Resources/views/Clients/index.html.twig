@@ -1,15 +1,5 @@
 {% extends "::base.html.twig" %}
 
-{% block javascript %}
-{{ parent() }}
-<script src="{{ asset('bundles/financebackoffice/js/villes.js') }}"></script>
-<script>
-for(var i=0 ; i < villes.length ; i++)
-{
-$('#villes').append("<option>"+villes[i]+"</option>");
-}
-</script>
-{% endblock %}
 
 {% block g_clients %}
 
@@ -17,44 +7,68 @@ active
 
 {% endblock %}
 
+
+
+
 {% block content %}
 <h1>Liste des Clients</h1>
 <br>
-<div class="filtrage">
+<!-- Début Filtrage -->
+<div class="filtrage" >
 <h3>Critères</h3>
-<form>
-<table>
-<tr>
-<td>
-Nom/Raison Social<br>
-<input type="text" placeholder="Nom/R.Social">
-</td>
-<td>
-NCIN<br>
-<input type="text" placeholder="Ncin Client">
-</td>
-<td>
-Ville<br>
-<select id="villes">
-</td>
-</tr>
+{% set ncin = '' %}
+{% set nom = '' %}
+{% set prenom = '' %}
+{% set num_compte = '' %}
+{% set raison_social = '' %}
+{% if paginator.criteres['ncin_client'] is defined %} {% set ncin = paginator.criteres['ncin_client'] %} {% endif %} 
+{% if paginator.criteres['prenom_client'] is defined %} {% set prenom = paginator.criteres['prenom_client'] %} {% endif %}
+{% if paginator.criteres['nom_client'] is defined %} {% set nom = paginator.criteres['nom_client'] %} {% endif %}
+{% if paginator.criteres['raison_social'] is defined %} {% set raison_social = paginator.criteres['raison_social'] %} {% endif %}
+{% if paginator.criteres['id_compte'] is defined %} {% set num_compte = paginator.criteres['id_compte'] %} {% endif %}
+<form method="POST">
+    <table>
+        <tr>
+            <td>
+                <select name="nature_client" id="nature_client">
+                    <option>Nature Client</option>
+                    <option  value="client_physique">Client Physique</option>
+                    <option  value="client_moral">Client Moral</option>
+                </select>
+            </td>
+            <td>
+                Ville<br>
+                <select id="villes" name="ville"></select>
+            </td>
+            <td class="client_physique_criteres">
+                NCIN<br>
+                <input name="ncin_client" value="{{ ncin }}" type="text" placeholder="Ncin Client">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                N° Compte<br>
+                <input type="text" value="{{ num_compte }}" placeholder="Id Compte" name="id_compte">
+            </td>
+            <td class="client_physique_criteres">
+                Nom Prénom<br>
+                <input name="nom_client" value="{{ nom }}" type="text" placeholder="Nom">
+                <input name="prenom_client" value="{{ prenom }}" type="text" placeholder="Prénom">
+            </td>
+            <td class="client_moral_criteres">
+                Raison Social <br>
+                <input name="raison_social" value="{{ raison_social }}" type="text" placeholder="Raison social">
+            </td>
+            <td>
+                <input type="submit" value="Filtrer">
+            </td>
+        </tr>
 
-<tr>
-<td>
-N° Compte<br>
-<input type="text" placeholder="Id Compte">
-</td>
-<td>
-
-</td>
-<td>
-<input type="submit" value="Filtrer">
-</td>
-</tr>
-
-</table>
+    </table>
 </form>
 </div>
+<!--  Fin Filtrage  -->
+
 
 <div class="CSSTable">
 <table>
@@ -66,73 +80,113 @@ N° Compte<br>
 <td>Comptes</td>
 <td width="70px">Actions</td>
 </tr>
-
+{% for client in clients %}
 <tr>
-<td>07179349</td>
-<td>Amjed NOUIRA</td>
-<td>33 Rue de holland El mourouj</td>
-<td>55335102</td>
+<td>{{  client.realIdClient}}</td>
+<td><a href="#">{{client.nomPrenomOuRSocial}}</a></td>
+<td>{{client.adresse}}</td>
+<td>{{client.tel}}</td>
 <td>
 <ul>
-<li>CE : 001380012365865</li>
-<li>CC : 21321452665478925145</li>
+{% for compte in client.comptes %}
+<li>{{ compte.type }} : <a href="#">{{ compte.numCompte }}</a></li>
+{% endfor %}
 </ul>
 </td>
 <td>
-<div class="show_button"></div>
+<div class="show_button" onClick="getDetails('{{ path("details_client" , {'id' : client.id}  ) }}')"></div>
 <div class="edit_button"></div>
 </td>
 </tr>
-
-<tr>
-<td>06548732</td>
-<td>Mariem Nfaidh</td>
-<td>50 Rue de paris, Raoued</td>
-<td>20152364</td>
-<td>
-<ul>
-<li>CE : 001380019365884</li>
-</ul>
-</td>
-<td>
-<div class="show_button"></div>
-<div class="edit_button"></div>
-</td>
-</tr>
+{% endfor %}
 </table>
 </div>
 
+<!-- Details Box -->
         <div class="details_box">
             <div >
                 <div class="close_details_box_button clickable"></div>
-                <div class="details">
-  <center>           
-                <!--  A Supprimer -->
-                <h2>Informations du Client</h2>
-<br><br>
-<table class="details_table">
-<tr><td>Ncin/N°Passeport Client</td><td>071793499</td></tr>
-<tr><td>Nom</td><td>Amjed NOUIRA</td></tr>
-<tr><td>Adresse</td><td>33 Rue de Holland El mourouj4</td></tr>
-<tr><td>Tél</td><td>55335102</td></tr>
-<tr><td>Liste des comptes</td><td><ul>
-									<li>CE: 001380012365865 </li>
-									<li>CC: 21321452665478925145</li>
-								  </ul></td></tr>
-<tr><td>Date d'abonnement</td><td>01/02/2013</td></tr>
-<tr><td>Agence</td><td>Agence el mourouj1</td></tr>
-<tr><td>Fonction</td><td>Etudiant</td></tr>
-<tr><td>Etablissment</td><td>n/a</td></tr>
-<tr><td>Date de naissance</td><td>06/01/1992</td></tr>
-</table>
-<div >
-<div class="edit_button"></div><div class="print_button"></div>
-</div>
-    </center>               
+                <div class="loadingZone" style="position: relative;top: 100px;left: 50%;">
+                <img src="{{ asset('bundles/financebackoffice/images/loading.gif') }}" >
+                </div>
+                <div class="details">                  
                 
                 </div>
              </div>
         </div>
-                
+<!-- End Details Box -->                
 
+{% include '::paginator.html.twig' with { 'nbrePages' :paginator.nbrePage , 'currentPage' : paginator.page  ,'baseUrl' : path('clients_index') } %}
+    
+
+        
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+<script src="{{ asset('bundles/financebackoffice/js/villes.js') }}"></script>
+<script>
+$('#villes').append("<option value='' >Choisissez votre ville</option>");
+for(var i=0 ; i < villes.length ; i++)
+{
+$('#villes').append("<option value='"+villes[i]+"'>"+villes[i]+"</option>");
+}
+
+
+{% if paginator.criteres['ville'] is defined %}	
+
+	$("select#villes option[value='{{ paginator.criteres['ville'] }}']").attr('selected','true') ;
+
+{% endif %}
+
+function showClientMoralCriteres()
+{
+	$('.client_moral_criteres').show();
+    $('.client_physique_criteres').hide();
+}
+
+function showClientPhysiqueCriteres()
+{
+	$('.client_moral_criteres').hide();
+    $('.client_physique_criteres').show();
+}
+
+function hideClientPhysiqueEtMoral()
+{
+	$('.client_moral_criteres').hide();
+    $('.client_physique_criteres').hide();
+}
+
+$('#nature_client').on('change',function()
+        {
+            if ($('#nature_client').val() == 'client_physique' )
+            {
+            	showClientPhysiqueCriteres() ;
+            }else
+            {
+                if ($('#nature_client').val() == 'client_moral' )
+                {
+                	showClientMoralCriteres() ;
+                }else
+                {
+                	hideClientPhysiqueEtMoral() ;
+                }
+            }
+        }
+);
+
+
+{% if paginator.criteres['nature_client'] is defined  %} 
+$('select#nature_client option[value={{paginator.criteres['nature_client']}}]').attr('selected','true');
+	{% if paginator.criteres['nature_client'] == 'client_physique' %}
+		showClientPhysiqueCriteres() ;
+	{% elseif paginator.criteres['nature_client'] == 'client_moral' %}
+		showClientMoralCriteres() ;
+	{% endif %}
+{% endif %}
+
+
+
+
+</script>
 {% endblock %}
