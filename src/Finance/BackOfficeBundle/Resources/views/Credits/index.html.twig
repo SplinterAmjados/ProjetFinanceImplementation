@@ -76,7 +76,7 @@ Date dernière échéance<br>
 {% for credit in credits %}
 <tr>
 <td>{{ credit.id }}</td>
-<td>{{ credit.compte.numCompte }}</td>
+<td><p class="show_link" onClick="getDetails('{{ path("details_compte" , {'id' : credit.compte.id}  ) }}')">{{ credit.compte.numCompte }}</p></td>
 <td>{{ credit.types[credit.type] }}</td>
 <td>{{ credit.montant|number_format(3,',',' ') }}</td>
 <td>{{ credit.dateDerniereEcheance|date('d/m/Y') }}</td>

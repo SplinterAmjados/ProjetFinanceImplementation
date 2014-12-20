@@ -1,7 +1,7 @@
 <?php
 namespace Finance\BackOfficeBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert ;
 
 /**
  * 
@@ -16,6 +16,7 @@ class ClientMoral extends Client {
 	 * @var string
      *
      * @ORM\Column(name="raison_social", type="string")
+     * @Assert\NotBlank(message="Vous devez indiquer la raison social")
 	 */
 	private $raisonSocial ;
 
@@ -23,6 +24,7 @@ class ClientMoral extends Client {
 	 * 
 	 * @var string
 	 * @ORM\Column(name="id_soc", type="string")
+	 * @Assert\NotBlank(message="Vous devez indiquer l'identifiant de la société")
 	 */
 	private $idSoc ;
 	
@@ -33,9 +35,16 @@ class ClientMoral extends Client {
     
 	/**
 	 * @ORM\Column(name="date_fondation" , type="date" )
-	 * @var unknown_type
+	 * @Assert\Date(message="Format de la date de fondation est invalide")
 	 */
 	private $dateFondation ;
+	
+	
+	public function getType()
+	{
+		return 'moral' ;
+	}
+	
 	
 	public function getNomPrenomOuRSocial()
 	{
@@ -122,7 +131,7 @@ class ClientMoral extends Client {
      * @param \Date $dateFondation
      * @return ClientMoral
      */
-    public function setDateFondation(\Date $dateFondation)
+    public function setDateFondation(\DateTime $dateFondation)
     {
         $this->dateFondation = $dateFondation;
 
@@ -132,7 +141,7 @@ class ClientMoral extends Client {
     /**
      * Get dateFondation
      *
-     * @return \Date 
+     * @return \DateTime 
      */
     public function getDateFondation()
     {

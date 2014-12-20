@@ -1,0 +1,32 @@
+{% extends "FinanceBackOfficeBundle:Clients:index.html.twig" %}
+
+
+{% block content %}
+<h1>Modification d'un client</h1>
+<br><br>
+<fieldset style="width : 400px ;">
+{% include "::erreurs.html.twig" with { 'erreurs' : erreurs } %}
+{{ form_start(form, { 'method' : 'POST' , 'action' : path('edit_client_moral', { id : client.id })  }  ) }}
+<table  >
+<tr><td width="50%">Identifiant<span class="form-required">*</span></td><td>{{ form_widget(form.idSoc) }}</td></tr>
+<tr><td>Raison Sociale<span class="form-required">*</span></td><td>{{ form_widget(form.raisonSocial) }}</td></tr>
+<tr><td>Date de Fondation<span class="form-required">*</span></td><td>{{ form_widget(form.dateFondation) }}</td></tr>
+<tr><td>Adresse<span class="form-required">*</span></td><td>{{ form_widget(form.adresse) }}</td></tr>
+<tr><td>Ville<span class="form-required">*</span></td><td>{{ form_widget(form.ville) }}</td></tr>
+<tr><td>Code Postal<span class="form-required">*</span></td><td>{{ form_widget(form.codePostal) }}</td></tr>
+<tr><td>Tél<span class="form-required">*</span></td><td>{{ form_widget(form.tel) }}</td></tr>
+</table>
+<input type="hidden" name="natureClient" value="moral">
+<input type="submit" value="Enregistrer" style="float : right ;">
+{{ form_end(form) }}
+<div>
+<a href="{{ path('modifier_gerant', { id : client.id } ) }}">
+{% if client.gerant != null %}
+Modifier le gérant
+{% else %}
+Affecter un gérant
+{% endif %}
+</a>
+</div>
+</fieldset>
+{% endblock %}

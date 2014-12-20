@@ -1,7 +1,13 @@
- <center>  
-<h2>Informations du Compte</h2>
-<br><br>
-<table class="details_table">
+{% extends "FinanceBackOfficeBundle:reports:report_template.html.twig" %}
+
+{% block titre_report %}
+Relevé Bancaire d'un Compte
+{% endblock %}
+
+
+
+
+{% block contenu %}
 
 <tr><td>N° Compte</td><td>{{ compte.numCompte }}</td></tr>
 <tr><td>Date de création</td><td>{{ compte.dateCreation|date('Y/m/d H:i:s') }}</td></tr>
@@ -16,7 +22,7 @@
 {% endfor %}
 </ul></td></tr>
 
-<tr><td>Transactions récentes</td><td><ul>
+<tr><td>Transactions récentes</td><td><ul style="text-align: left ;">
 {% for transaction in compte.transactions %}
 <li>
 [{{ transaction.date|date('Y/m/d H:i:s') }}]   {{ transaction.type }}  {{ transaction.montant }} Dt
@@ -24,7 +30,5 @@
 {% endfor %}
 </ul></td></tr>
 
-<tr><td>Etat</td><td>{% if compte.active %} Actif {% else %} Bloqué {% endif %}</td></tr>
-</table>
-<div class="edit_button"></div><div onClick="goTo('{{ path('releve_bancaire_pdf', { id : compte.id }) }}')" class="print_button"></div>
-</center>
+
+{% endblock %}

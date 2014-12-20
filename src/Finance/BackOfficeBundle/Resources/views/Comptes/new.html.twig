@@ -20,6 +20,9 @@
 {% block table %}
 <form action="{{ path('new_compte_2') }}" method="POST">
 <fieldset >
+{% if erreurs is defined %}
+{% include "::erreurs.html.twig" with { 'erreurs' : erreurs } %}
+{% endif %}
 <table style="width : 400px ;" >
 <tr >
 <td>Id Propriétaire 1 <span class="form-required">*</span></td><td width="70%">

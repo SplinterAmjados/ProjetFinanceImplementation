@@ -1,0 +1,58 @@
+{% extends "FinanceBackOfficeBundle:reports:report_template.html.twig" %}
+
+{% block titre_report %}
+{% if transaction.type == 'Retrait' %} Retrait Especes {% else %} Versement Especes {% endif %}
+{% endblock %}
+
+{% block date %}
+    Date : {{ transaction.date|date('d/m/Y') }}
+{% endblock %}
+
+
+{% block contenu %}
+
+
+
+    <tr>
+        <td>Nom ou R.S :  </td>
+        <td colspan="2">
+            {% for c in transaction.compte.proprietaires %}
+            {{ c.nomPrenomOuRSocial }}<br>
+            {% endfor %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>Numero de compte :  </td>
+        <td colspan="2">{{ transaction.compte.numCompte }}</td>
+    </tr>
+
+    <tr>
+        <td>Type de Compte : </td>
+        <td colspan="2">{% if transaction.compte.type == 'CC' %}Compte Courant {% else %} Compte Epargne {% endif %}</td>
+    </tr>
+    
+    <tr>
+        <td>Nom du deposant </td>
+        <td>Montant en lettre</td>
+        <td>Montant en chiffre</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>{{ transaction.montant }} Dt</td>
+    </tr>
+    <tr>
+        <td>Piece d'identite</td>
+        <td>Cacher et signature de la banque</td>
+        <td>Signature Client</td>
+    </tr>
+    <tr>
+        <td>
+            Type : {{ piece['type'] }} <br>
+            Numero : {{ piece['num'] }}
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+{% endblock %}

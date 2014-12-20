@@ -13,44 +13,27 @@ display : none ;
 <h1>Ajouter un client</h1>
 <br><br>
 <div class="etapes_container">
-    <div class="titre_etape">{% block titre_etape %}Informations Client{% endblock %}</div>
+    <div class="titre_etape">{% block titre_etape %}Type du Client{% endblock %}</div>
     <div class="etapes">
         <div class="etape {% block etape1 %} etape_current {% endblock %} " >1</div>
         <div class="etape {% block etape2 %} {% endblock %} ">2</div>
+        <div class="etape {% block etape3 %} {% endblock %} ">3</div>
     </div>
 </div>
 <br>
 <fieldset style="width : 400px ;">
 {% block contenu %}
-<table>
-<td width="50%">
-Nature Client
-</td>
-<td>
-<select id="nature_client">
-<option value="">Choisissez nature client</option>
-<option value="physique">Client Physique</option>
-<option value="morale">Client Moral</option>
-</select>
-</td>
-</table>
+<br><br>
+<div class="banim_left_to_right">
+<a href="{{ path('new_client_physique') }}">> Création d'un Client Physique</a>
+</div>
+<div class="banim_left_to_right">
 <br>
-
-<div id="form_displayed">
-</div>
-
-</fieldset>
-
-<div id="table_client_physique">
-{% include 'FinanceBackOfficeBundle:Clients:form_client_physique.html.twig' with { 'form' : form_physique } %}
-</div>
-
-<div id="table_client_morale">
-{% include 'FinanceBackOfficeBundle:Clients:form_client_moral.html.twig' with { 'form' : form_moral } %}
+<a href="{{ path('new_client_moral') }}">> Création d'un Client Moral</a>
 </div>
 
 {% endblock %}
-
+</fieldset>
 
 {% endblock %}
 

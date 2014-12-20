@@ -1,4 +1,20 @@
- .debit_button
+.show_link:hover
+{
+	cursor : pointer ;	
+	color : blue ;
+}
+
+.delete_button
+{
+display: inline-table;
+width: 30px;
+height: 30px;
+cursor: pointer;
+background-image: url('../images/iconesButtons/delete1.png');
+background-size: cover;
+}
+
+.debit_button
 {
 display: inline-table;
 width: 30px;
@@ -183,7 +199,7 @@ background-color : #CDCDCD;
 	background-size: cover;
 }
 
-.show_button:hover,.edit_button:hover,.print_button:hover,.debit_button:hover,.credit_button:hover {
+.delete_button,.show_button:hover,.edit_button:hover,.print_button:hover,.debit_button:hover,.credit_button:hover {
 	width: 31px;
 }
 

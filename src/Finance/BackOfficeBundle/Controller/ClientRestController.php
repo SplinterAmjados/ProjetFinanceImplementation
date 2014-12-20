@@ -75,9 +75,11 @@ class ClientRestController extends Controller {
 				$this->getDoctrine()->getManager()->flush();
 				
 				//Ok
+		 		$r = array();
 				$reponse['token'] = $token->getValue();
 				$reponse['code'] = '1';
-				return new Response(json_encode($reponse));
+				$r[] = $reponse ;
+				return new Response(json_encode($r));
 			}
 		}
 	//Not Ok
@@ -104,7 +106,7 @@ class ClientRestController extends Controller {
 			$comptes = $this->getDoctrine()->getRepository("FinanceBackOfficeBundle:Compte")->findByLogin($login) ;			
 			$encoder = new JsonEncoder();
 			$normalizer = new GetSetMethodNormalizer();
-			$normalizer->setIgnoredAttributes(array('id','dateCreation','proprietaires','transactions','credits'));
+			$normalizer->setIgnoredAttributes(array('id','dateCreation','proprietaires','transactions','credits','notifications'));
 			$serializer = new Serializer(array($normalizer), array($encoder));
 			
 			return new Response($serializer->serialize($comptes,'json'));
@@ -213,4 +215,36 @@ class ClientRestController extends Controller {
 	}
 	
 
+	/**
+	 * @Route("/rest/notifications/{type}/{login}/{token}")
+	 * @Method("GET")
+	 */
+	public function getVersementNotifications($type,$login,$token)
+	{
+		$validateToken = $this->get('tokenValidatorService');
+		$valide_token = $validateToken->validate($login, $token);
+		
+		if ($valide_token)
+		{			
+		$client = $this->getDoctrine()->getRepository("FinanceBackOfficeBundle:Client")->findOneByLogin($login);		
+		$comptes = $client->getComptes();
+		$notifications = $this->getDoctrine()->getRepository("FinanceBackOfficeBundle:Notification")->getNotificationsByComptes($comptes,$type);
+		
+		$ns=array();
+		foreach($notifications as $n)
+		{
+			$ns[] = $n->getMessage();	
+			$this->getDoctrine()->getManager()->remove($n);
+		}
+		$this->getDoctrine()->getManager()->flush();
+				
+		return new Response(json_encode($ns));
+		}
+		else
+		{
+			$reponse['code'] = '0' ;
+			return new Response("[".json_encode($reponse)."]");
+		}
+	}
+	
 }

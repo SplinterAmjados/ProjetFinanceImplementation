@@ -1,0 +1,76 @@
+{% extends "FinanceBackOfficeBundle:Clients:new.html.twig" %}
+
+{% block titre_etape %}
+Confirmation
+{% endblock %}
+
+{% block etape1 %}
+{% endblock %}
+
+{% block etape3 %}
+etape_current
+{% endblock %}
+
+{% block contenu %}
+<table class="table_details">
+{% if client.ncin is defined %}
+	<tr>
+		<td>NCIN</td>
+		<td>{{ client.ncin }}</td>
+	</tr>
+	<tr>
+		<td>Num Passeport</td>
+		<td>{% if client.nPasseport != null %}{{ client.nPasseport }}{% else %}N/A{% endif %}</td>
+	</tr>
+	<tr>
+		<td>Nom & Prénom</td>
+		<td>{{ client.nom|upper }}  {{ client.prenom|title }}</td>
+	</tr>
+	<tr>
+		<td>Nationnalité</td>
+		<td>{{ client.nationnalite }}</td>
+	</tr>
+	<tr>
+		<td>Date de Naissance</td>
+		<td>{{ client.dateNaissance|date('d/m/Y') }}</td>
+	</tr>
+	<tr>
+		<td>Fonction</td>
+		<td>{{ client.fonction }}</td>
+	</tr>
+	<tr>
+		<td>Etablissement</td>
+		<td>{{ client.etablissement }}</td>
+	</tr>
+	{% else %}
+	{# Client Moral #}
+	<tr>
+		<td>Identifiant Société</td>
+		<td>{{ client.raisonSocial }}</td>
+	</tr>
+	<tr>
+		<td>Raison Social</td>
+		<td>{{ client.raisonSocial }}</td>
+	</tr>
+	<tr>
+		<td>Date de Fondation</td>
+		<td>{{ client.dateFondation|date('d/m/Y') }}</td>
+	</tr>
+	{% endif %}
+	<tr>
+		<td>Adresse</td>
+		<td>{{ client.adresse }}</td>
+	</tr>
+	<tr>
+		<td>Ville</td>
+		<td>{{ client.ville }}</td>
+	</tr>
+	<tr>
+		<td>N° Tél</td>
+		<td>{{ client.tel }}</td>
+	</tr>
+</table>
+<input type="button" onClick="goTo('{{ path('confirm_new_client') }}');" value="Enregistrer" style="float : right ;">
+
+
+{% endblock %}

@@ -5,7 +5,7 @@ namespace Finance\BackOfficeBundle\Entity;
 use Doctrine\ORM\Mapping\MappedSuperclass;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert ;
 /**
  * 
  * @author Splinter
@@ -17,6 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class Client
 {
+
+	
     /**
      * @var integer
      *
@@ -37,6 +39,7 @@ abstract class Client
      * @var string
      *
      * @ORM\Column(name="adresse", type="string", length=255)
+     * @Assert\NotBlank(message="Vous devez indiquer votre adresse")
      */
     private $adresse;
 
@@ -44,6 +47,7 @@ abstract class Client
      * @var string
      *
      * @ORM\Column(name="ville", type="string", length=100)
+     * @Assert\NotBlank(message="Vous devez indiquer votre ville")
      */
     private $ville;
 
@@ -51,6 +55,7 @@ abstract class Client
      * @var integer
      *
      * @ORM\Column(name="code_postal", type="integer")
+     * @Assert\NotBlank(message="Vous devez indiquer votre code postal")
      */
     private $codePostal;
 
@@ -58,6 +63,9 @@ abstract class Client
      * @var string
      *
      * @ORM\Column(name="tel", type="string", length=12)
+     * @Assert\NotBlank(message="Vous devez indiquer votre numéro de téléphone")
+     * @Assert\Type(type="long",message="Numéro de téléphone est invalide")
+     * @Assert\Length(min="8",minMessage="Numéro de téléphone doit comporter au moins 8 chiffres")
      */
     private $tel;
 
@@ -89,6 +97,8 @@ abstract class Client
      */
     private $agence;
 
+    
+    
     
     abstract public function getNomPrenomOuRSocial();
     
@@ -335,4 +345,7 @@ abstract class Client
     {
         return $this->agence;
     }
+
+
+   
 }

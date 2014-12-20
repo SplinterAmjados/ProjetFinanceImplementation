@@ -6,3 +6,6 @@ services:
     tokenValidatorService:
         class: Finance\BackOfficeBundle\Services\ValidateRestTokenService
         arguments: ["@doctrine.orm.entity_manager","@request_stack"]
+    CitiesService:
+        class: Finance\BackOfficeBundle\Services\VillesService
+

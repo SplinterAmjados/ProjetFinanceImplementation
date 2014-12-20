@@ -83,19 +83,23 @@ active
 {% for client in clients %}
 <tr>
 <td>{{  client.realIdClient}}</td>
-<td><a href="#">{{client.nomPrenomOuRSocial}}</a></td>
+<td>{{client.nomPrenomOuRSocial}}</td>
 <td>{{client.adresse}}</td>
 <td>{{client.tel}}</td>
 <td>
 <ul>
 {% for compte in client.comptes %}
-<li>{{ compte.type }} : <a href="#">{{ compte.numCompte }}</a></li>
+<li class="show_link" onClick="getDetails('{{ path("details_compte" , {'id' : compte.id}  ) }}')">{{ compte.type }} :{{ compte.numCompte }}</li>
 {% endfor %}
 </ul>
 </td>
 <td>
 <div class="show_button" onClick="getDetails('{{ path("details_client" , {'id' : client.id}  ) }}')"></div>
-<div class="edit_button"></div>
+{% if client.type == 'physique' %}
+<div class="edit_button" onClick="goTo('{{ path('edit_client_physique', { id : client.id }) }}');" ></div>
+{% else %}
+<div class="edit_button" onClick="goTo('{{ path('edit_client_moral', { id : client.id }) }}');" ></div>
+{% endif %}
 </td>
 </tr>
 {% endfor %}

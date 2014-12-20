@@ -1,7 +1,7 @@
 <?php
 namespace Finance\BackOfficeBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert ;
 
 /**
  * 
@@ -16,6 +16,8 @@ class ClientPhysique extends Client {
 	 * @var string
      *
      * @ORM\Column(name="nom", type="string")
+     * @Assert\NotBlank(message="Vous devez indiquer votre nom")
+     * @Assert\Length(min="3",max="30",minMessage="Le nom entre 3 et 30 caractères",maxMessage="Le nom entre 3 et 30 caractères")
 	 */
 	private $nom ;
 	
@@ -23,6 +25,8 @@ class ClientPhysique extends Client {
 	 * @var string
 	 *
 	 * @ORM\Column(name="prenom", type="string")
+	 * @Assert\NotBlank(message="Vous devez indiquer votre prenom")
+     * @Assert\Length(min="3",max="30",minMessage="Le prénom entre 3 et 30 caractères",maxMessage="Le prénom entre 3 et 30 caractères")
 	 */
 	private $prenom ;
 	
@@ -31,6 +35,8 @@ class ClientPhysique extends Client {
 	 * 
 	 * @var string
 	 * @ORM\Column(name="ncin", type="string" , length=8 , nullable=true)
+     * @Assert\Length(min="8",max="8",exactMessage="le ncin doit comporter 8 chiffres")
+     * @Assert\Type(type="long",message="NCIN est invalide")
 	 */
 	private $ncin;
 	
@@ -38,18 +44,19 @@ class ClientPhysique extends Client {
 	 *
 	 * @var string
 	 * @ORM\Column(name="npasseport", type="string" , length = 20 , nullable=true)
+	 * @Assert\Length(min="8",max="20",minMessage="N° passeport entre 8 et 20 ")
 	 */
 	private $nPasseport;
 	
 	
 	
 	/**
-	 * @ORM\Column(name="fonction", type="string" , length = 50 )
+	 * @ORM\Column(name="fonction", type="string" , length = 50 , nullable = true )
 	 */
 	private $fonction;
 	
 	/**
-	 * @ORM\Column(name="etablissement",type="string", length = 100 )
+	 * @ORM\Column(name="etablissement",type="string", length = 100 , nullable = true  )
 	 * @var unknown_type
 	 */
 	private $etablissement;
@@ -57,12 +64,19 @@ class ClientPhysique extends Client {
 	/**
 	 *
 	 * @ORM\Column(name="nationnalite", type="string" , length = 30 )
+	 * @Assert\NotBlank(message="Vous devez indiquer votre nationnalité")
 	 */
 	private $nationnalite ;
+	
+	public function getType()
+	{
+		return 'physique' ;
+	}
 	
 	/**
 	 *
 	 * @ORM\Column(name="date_naissance", type="date" )
+	 * @Assert\Date(message="date de naissance est invalide")
 	 */
 	private $dateNaissance ;
 	

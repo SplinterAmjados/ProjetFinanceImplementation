@@ -8,6 +8,7 @@
     <link rel='stylesheet' type='text/css'  href="{{ asset('bundles/financebackoffice/css/fancybox.css') }}"/>
     <link rel='stylesheet' type='text/css' href="{{ asset('bundles/financebackoffice/css/main_style.css') }}" title='wsite-theme-css'/>
     <link rel='stylesheet' type='text/css' href="{{ asset('bundles/financebackoffice/css/style.css') }}" title='wsite-theme-css'/>
+     <link rel='stylesheet' type='text/css' href="{{ asset('bundles/financebackoffice/css/animation.css') }}" title='wsite-theme-css'/>
     <link href="{{ asset('bundles/financebackoffice/css/css.css') }}" rel='stylesheet'     type='text/css'/>
     <link href="{{ asset('bundles/financebackoffice/jqueryui/jquery-ui.min.css') }}" rel="stylesheet" type="text/css">
   </head>
@@ -96,11 +97,13 @@
 <script src='{{ asset('bundles/financebackoffice/jqueryui/jquery-ui.js') }}'></script>
 <script src='{{ asset('bundles/financebackoffice/js/scripts.js') }}'></script>
 <script>
-    $('.show_button').click(function()
+    $('.show_button, .show_link').click(function()
             {
 showWithScaleEffect('.details_box');
             }
     );
+
+    
 </script>
 {% endblock %}
 </body>

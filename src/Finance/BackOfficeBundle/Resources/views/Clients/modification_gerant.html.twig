@@ -1,0 +1,83 @@
+{% extends "FinanceBackOfficeBundle:Clients:index.html.twig" %}
+
+{% block content %}
+<h1>Modification d'un gérant</h1>
+<br><br>
+<fieldset style="width : 500px ;">
+{% include "::erreurs.html.twig" with { 'erreurs' : erreurs } %}
+<table  >
+<tr>
+	<td width="50%">Raison Social</td>
+	<td>client.raisonSocial</td>
+</tr>
+<tr>
+	<td width="50%">Id Société</td>
+	<td>{{ client.idSoc}}</td>
+</tr>
+<tr>
+	<td>Gérant</td>
+	<td>
+	{% if client.gerant != null %}
+	<table>
+		<tr>
+			<td>
+				{{ client.gerant.nomPrenomOuRSocial }} ({{ client.gerant.realIdClient }})
+			</td>
+			<td style=" width: 80px;"> 
+				<div onClick="goTo('{{ path('edit_client_physique', { id : client.gerant.id }) }}')" class="edit_button"></div>
+				<div onClick="goTo('{{ path('desaffecter_gerant' , { id : client.id }) }}')" class="delete_button"></div>				
+			</td>
+		</tr>
+	</table>
+	{% else %}
+	<form method="POST" action="{{ path('affecter_gerant', { idSoc : client.id}) }}">
+	<table>
+		<tr>
+			<td>
+				<input id="gerant" type="text" placeholder="Nom/Prénom/NCIN/N°passeport" required="required" name="gerant">
+			</td>
+			<td>
+				<input type="submit" value="Affecter">
+			</td>
+		</tr>
+	</table>	
+	
+	</form>
+	{% endif %}
+	</td>
+</tr>
+</table>
+</fieldset>
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+<script>
+
+$("#gerant").autocomplete({
+    source: function(requete,reponse){
+        $.ajax(
+                {
+                    url : '{{ path('get_gerants_json') }}',
+                    dataType : 'json' ,
+                    data : {
+						start_With : $("#gerant").val(),
+                        },
+                    type : "post",
+                    success : function(donnees)
+                    {
+                    	reponse($.map(donnees, function(objet){   
+                        	                   	
+                            return { label:objet.nom+" "+objet.prenom+" ("+objet.realIdClient+")" , value:objet.id} ;
+                             
+                        }));
+                    }
+                }
+        );
+    },
+
+    minLength: 2 }
+);
+
+</script>
+{% endblock %}

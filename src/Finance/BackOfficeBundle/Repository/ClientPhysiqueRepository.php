@@ -2,6 +2,8 @@
 
 namespace Finance\BackOfficeBundle\Repository;
 
+use Doctrine\ORM\Query\Expr\Join;
+
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -25,6 +27,22 @@ class ClientPhysiqueRepository extends EntityRepository
 				->getQuery();
 		
 		return $qb->execute();
+	}
+	
+	public function findGerantStartWith($start_with)
+	{
+		$list_gerant = $this->
+		_em->
+		createQuery("SELECT cl.id FROM FinanceBackOfficeBundle:ClientMoral c Join c.gerant cl ")
+		->execute();
+		
+		$query = $this->_em->createQuery(
+				"Select c FROM FinanceBackOfficeBundle:ClientPhysique c WHERE c.id not in (:list)".
+				"and ( c.nom like :start  or  c.prenom like :start or c.ncin like :start or c.nPasseport like :start )"
+				)->setParameter("list", $list_gerant)->setParameter("start", $start_with."%");
+		
+	
+		return $query->execute();
 	}
 	
 }

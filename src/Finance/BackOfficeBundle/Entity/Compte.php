@@ -62,6 +62,12 @@ class Compte
     private $proprietaires ;
     
     
+    /**
+     * 
+     * @ORM\OneToMany(targetEntity="Notification" , mappedBy="notifications");
+     */
+    private $notifications;
+    
     public function debit($montant)
     {
     	$this->setSolde($this->getSolde()-$montant);
@@ -99,7 +105,7 @@ class Compte
     }
     
     /**
-     * @ORM\OneToMany(targetEntity="Credit", mappedBy="compte")
+     * @ORM\OneToMany(targetEntity="Credit", mappedBy="compte" , cascade = {"persist"})
      */
     private $credits;
     
@@ -343,5 +349,38 @@ class Compte
     public function getCredits()
     {
         return $this->credits;
+    }
+
+    /**
+     * Add notifications
+     *
+     * @param \Finance\BackOfficeBundle\Entity\Notification $notifications
+     * @return Compte
+     */
+    public function addNotification(\Finance\BackOfficeBundle\Entity\Notification $notifications)
+    {
+        $this->notifications[] = $notifications;
+
+        return $this;
+    }
+
+    /**
+     * Remove notifications
+     *
+     * @param \Finance\BackOfficeBundle\Entity\Notification $notifications
+     */
+    public function removeNotification(\Finance\BackOfficeBundle\Entity\Notification $notifications)
+    {
+        $this->notifications->removeElement($notifications);
+    }
+
+    /**
+     * Get notifications
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
     }
 }

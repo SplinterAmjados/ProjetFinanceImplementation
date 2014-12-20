@@ -2,16 +2,13 @@
 <h2>Informations du Client</h2>
 <br><br>
 <table class="details_table">
-{% if client.ncin is defined %}
-<tr><td>Ncin Client</td><td>{{ client.ncin }}</td></tr>
-{% endif %}
 
-{% if client.nPasseport is defined %}
-<tr><td>N° passeport Client</td><td>{{ client.nPasseport }}</td></tr>
-{% endif %}
-
+<tr><td>Ncin Client</td><td>{% if client.ncin is defined and client.ncin != null %}{{ client.ncin }}{% else %}N/A{% endif %}</td></tr>
+<tr><td>N° passeport Client</td><td>{% if client.nPasseport is defined and client.nPasseport != null %}{{ client.nPasseport }}{% else %}N/A{% endif %}</td></tr>
 <tr><td>Nom</td><td>{{ client.nom|upper }}  {{ client.prenom }}</td></tr>
 <tr><td>Adresse</td><td>{{ client.adresse }}</td></tr>
+<tr><td>Ville</td><td>{{ client.ville }}</td></tr>
+<tr><td>Nationnalité</td><td>{{ client.nationnalite }}</td></tr>
 <tr><td>Tél</td><td>{{ client.tel }}</td></tr>
 <tr><td>Liste des comptes</td><td><ul>
 {% for compte in client.comptes %}
@@ -19,10 +16,9 @@
 {% endfor %}
 								  </ul></td></tr>
 <tr><td>Date d'abonnement</td><td>{{ client.dateCreation|date('Y/m/d H:i:s') }}</td></tr>
-<tr><td>Agence</td><td>{{ client.agence }}</td></tr>
 <tr><td>Fonction</td><td>{{ client.fonction }}</td></tr>
 <tr><td>Etablissment</td><td>{{ client.etablissement }}</td></tr>
 <tr><td>Date de naissance</td><td>{{ client.dateNaissance|date('Ym/d') }}</td></tr>
 </table>
-<div class="edit_button"></div><div class="print_button"></div>
+<div class="edit_button" onClick="goTo('{{ path('edit_client_physique', { id : client.id }) }}');"></div>
 </center>

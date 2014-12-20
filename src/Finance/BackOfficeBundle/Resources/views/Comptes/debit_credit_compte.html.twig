@@ -1,13 +1,8 @@
 {% extends "FinanceBackOfficeBundle:Comptes:index.html.twig" %}
 
 {% block content %}
-<div class="errors"  style="display : {% if erreurs|length > 0 %} block {% else %} none {% endif %};">
-<ul>
-{% for error in erreurs %}
-<li>{{ error }}</li>
-{% endfor %}
-</ul>
-</div>
+
+{% include "::erreurs.html.twig" with { 'erreurs' : erreurs } %}
 
 
 
@@ -25,14 +20,19 @@
 </tr>
 <tr>
 	<td>Action</td>
-	<td><select name="action">
-		<option {% if action =='debit' %} selected {% endif %} value="debit">Débit</option>
-		<option {% if action =='credit' %} selected {% endif %} value="credit">Crédit</option>	
-	</select></td>
+	<td>{{ action|title }}</td>
 </tr>
 <tr>
 	<td>Montant</td>
 	<td><input name="montant" ></td>
+</tr>
+<tr>
+	<td>Pièce d'identité</td>
+	<td>
+	 <input style=" height : initial ; width : initial ;  " type="radio" name="type_p" value="cin" ><span>CIN</span>  <input style=" height : initial ; width : initial ;  " type="radio" name="type_p" value="passeport" >Passeport 
+<br>
+	<input type="text" name="num_p" > 
+	</td>
 </tr>
 <tr>
 <td colspan=2><input type="submit" value="confirmer"></td>

@@ -72,7 +72,7 @@ Solde Max<br>
 <td>
 <ul>
 {% for titulaire in compte.proprietaires %}
-<li>
+<li class="show_link" onClick="getDetails('{{ path("details_client" , {'id' : titulaire.id}  ) }}')">
 {{ titulaire.nomPrenomOuRSocial|title }} 
 </li>
 {% endfor %}
@@ -81,7 +81,7 @@ Solde Max<br>
 <td>{{ compte.solde }}</td>
 <td>
 {% for cr in compte.credits %}
-{{ cr.id }}#{{ cr.montant }}#{{ cr.dateDerniereEcheance|date('d/m/Y') }}<br>
+<p class="show_link" onClick="getDetails('{{ path("details_credit" , {'id' : cr.id}  ) }}')">{{ cr.id }}#{{ cr.montant }}#{{ cr.dateDerniereEcheance|date('d/m/Y') }}</p><br>
 {% endfor %}
 </td>
 <td width="70px">

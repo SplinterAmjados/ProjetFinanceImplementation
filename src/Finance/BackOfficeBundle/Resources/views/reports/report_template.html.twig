@@ -1,4 +1,4 @@
-{% extends %}
+﻿
 <html>
 <head>
 <style>
@@ -57,7 +57,6 @@ margin: 0 auto;
 
 #keywords thead {
   cursor: pointer;
-background: #D8DADB;
 color: black;
 font-size: 12px;
 }
@@ -67,6 +66,7 @@ font-size: 12px;
 padding: 5px 5px;
 border-style: solid;
 border-width: 2px;
+height : 40px ;
 }
 #keywords thead tr th span { 
 
@@ -105,14 +105,14 @@ border-width: 2px;
 <body>
  <div id="wrapper">
  <br><br>
- <table style="border-style:solid; border-width:2px; border-color:black; ">
+ <table style="border-style:solid; border-width:2px; border-color:black;">
  <tr>
  <td>
  <div align="left" style="padding-right:450px ; font-size:35px ;margin: 20px 20px"><b>U24</b> </div>
  </td>
  <td>
  <div align="right" style="margin: 5px 20px"><b>Email Bank : </b> bank.u24@u24.com <br> <b>Telephone : </b>+216 70 859 586
-  <br>
+ <br>
  <b>Agence :</b>Agence de l'INSAT
  </div>
  </td>
@@ -120,75 +120,24 @@ border-width: 2px;
  </table>
  <br><br><br>
 
+
+  <div style="width : 50% ; margin : auto ; font-size: 20px;font-weight: bold; margin-bottom : 20px ;">
+   <center>
+  {% block titre_report %} Releve du compte {% endblock %} 
+    </center>
+  </div>
+ 
+ <div style="float : right ; font-size : 14px ; margin-bottom : 8px ;">
+ {% block date %}
+  {% endblock %}
+ </div>
   
-  <table id="keywords" cellspacing="0" cellpadding="0">
   
-    <thead >
-	
-      <tr>
-        
-		<th   colspan="9"> Liste Resultats Clients </th>
-		
-		
-		
-      </tr>
-    </thead>
-    <tbody>
-	<tr>
-	<td><span>Nature Client</span></td>
-        <td><span>N CIN/N Passeport</span></td>
-        <td><span>Nom & Prenom</span></td>
-        <td><span>Nationnalite</span></td>
-        <td><span>Date de naissance</span></td>
-		<td><span>Addresse</span></td>
-		<td><span>Ville</span></td>
-		<td><span>Code postal</span></td>
-		<td><span>Telephone</span></td>
-	</tr>
-      <tr>
-        <td>Client Physique</td>
-        <td>074325869</td>
-        <td>Amjed Nouira</td>
-        <td>Tunisienne</td>
-        <td>22/10/1992</td>
-		<td>Ariana Cite Zahra 20</td>
-		<td>Ariana</td>
-		<td>2056</td>
-		<td>20 442 859</td>
-      </tr>
-      <tr>
-        <td>Client Physique</td>
-        <td>012539648</td>
-        <td>Qods Khouja</td>
-        <td>Tunisienne</td>
-        <td>10/12/1991</td>
-		<td>Passage Tunis 10</td>
-		<td>Tunis</td>
-		<td>2036</td>
-		<td>20 442 859</td>
-      </tr>
-      <tr>
-        <td>Client Physique</td>
-        <td>06452389</td>
-        <td>Mariem Nfaidh</td>
-        <td>Tunisienne</td>
-        <td>30/10/1991</td>
-		<td>Sidi Said 10 Rue Samir Selmi</td>
-		<td>Tunis</td>
-		<td>2036</td>
-		<td>20 442 859</td>
-      </tr>
-      <tr>
-        <td>Client Physique</td>
-        <td>01245896</td>
-        <td>Nihel Charradi</td>
-        <td>Tunisienne</td>
-        <td>15/2/1991</td>
-		<td>Sidi Bou Said 10 Rue 104</td>
-		<td>Tunis</td>
-		<td>2036</td>
-		<td>20 442 859</td>
-      </tr>
+  <table id="keywords" cellspacing="0" cellpadding="0" style=" width : 90% ;">
+    <tbody style="font-size : 15px ;">
+  {% block contenu %}
+
+      {% endblock %}
     </tbody>
   </table>
  </div> 

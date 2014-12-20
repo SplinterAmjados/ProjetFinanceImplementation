@@ -1,3 +1,8 @@
+	function goTo(url)
+	{
+		document.location.href= url ; 
+	}
+
 $('.close_details_box_button').click(function(){
     $('.details_box').hide();
 });

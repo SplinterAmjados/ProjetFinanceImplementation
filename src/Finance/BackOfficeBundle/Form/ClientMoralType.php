@@ -8,6 +8,15 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ClientMoralType extends AbstractType
 {
+	
+	private $villes ;
+	
+	public function __construct($villes)
+	{
+		$this->villes = $villes;
+		return $this;
+	}
+	
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -16,11 +25,13 @@ class ClientMoralType extends AbstractType
     {
         $builder
         	->add('adresse')
-        	->add('ville','choice')
+        	->add('ville','choice',array('choices' => $this->villes))
         	->add('codePostal')
         	->add('tel')
             ->add('raisonSocial')
             ->add('idSoc')
+            ->add('dateFondation','date', array('input'  => 'datetime','widget' => 'single_text'))
+            
         ;
     }
     

@@ -1,0 +1,11 @@
+{% if erreurs is defined %}
+{% if erreurs|length > 0 %}
+<div style="padding : 5px 10px ;" class="ui-state-error ui-corner-all">
+{% for erreur in erreurs %}
+<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+<strong>Erreur:</strong>
+{{ erreur }}<br>
+{% endfor %}
+</div>
+{% endif %}
+{% endif %}

@@ -19,13 +19,9 @@
 <table  >
 {% block contenu %}
 
-{% if erreurs|length > 0 %}
-<div class="errors">
-{% for erreur in erreurs %}
-{{ erreur }}<br>
-{% endfor %}
-</div>
-{% endif %}
+
+{% include "::erreurs.html.twig" with { 'erreurs' : erreurs } %}
+
 
 <form method="post">
 <tr>

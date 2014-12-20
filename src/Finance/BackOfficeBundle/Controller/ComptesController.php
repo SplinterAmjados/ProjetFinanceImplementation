@@ -1,6 +1,8 @@
 <?php
 namespace Finance\BackOfficeBundle\Controller;
 
+use Finance\BackOfficeBundle\Entity\Notification;
+
 use Finance\BackOfficeBundle\Entity\Transaction;
 
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -59,17 +61,61 @@ class ComptesController extends Controller {
 	 */
 	public function new2Action()
 	{
-		
+		$erreurs = array();
 		$props = $this->getRequest()->request->get('proprietaires');
+		
+		foreach($props as $p)
+		{
+			if (trim($p) == "") 
+			{
+				$erreurs[] = "Vous avez une valeur vide dans la liste des propriétaires";
+				break ;
+			}
+		}
+		
+		
+		foreach($props as $p)
+		{$c = 0;
+			foreach($props as $p1)
+			{
+				if ($p1 == $p) $c++;
+			}
+			if ($c > 1) 
+			{
+				$erreurs[] = "Vous ne pouvez pas choisir le même propriétaire plus qu'une fois";
+				break;
+			}
+		}
+		
 		$t =  $this->getRequest()->request->get('type');		
-		if ($t == 'epargne') $type = 'CE' ; else $type = 'CC' ;	
-		$compte = new Compte();
-		$compte->setType($type);		
+		if ($t == 'epargne') $type = 'CE' ; 
+		elseif ($t == 'courant') $type = 'CC' ;	
+		else $erreurs[] = "Le Type est Inccorect";
+
+		
 		$clients = array();
 		foreach($props as $p)
 		{
 			$clients[] = $this->getDoctrine()->getRepository("FinanceBackOfficeBundle:ClientPhysique")->find($p);
 		}
+		
+			foreach($clients as $client)
+			{
+				if ($client == null )
+				{
+					$erreurs[] = "Vous avez indiquez un propriétaire qui n'existe pas";
+					break;
+				}
+			}
+		
+			
+		if (count($erreurs) > 0)
+		{
+			return $this->render("FinanceBackOfficeBundle:Comptes:new.html.twig",array('erreurs' => $erreurs));
+		}	
+			
+		$compte = new Compte();
+		$compte->setType($type);
 		$compte->setProprietaires($clients);
 		$compte->generateNumCompte();
 		$compte->setActive(false)->setDateCreation(new \DateTime("NOW"))->setSolde(0);
@@ -133,26 +179,22 @@ class ComptesController extends Controller {
 	public function debitcrediterAction($action,$numCompte)
 	{
 		$compte = $this->getDoctrine()->getRepository("FinanceBackOfficeBundle:Compte")->findOneByNumCompte($numCompte);
-		$erreurs = array();
-		
-		
+		$erreurs = array();				
 		if ($this->getRequest()->getMethod() == "POST")
 		{
 			$transaction = new Transaction();
 			$montant = $this->getRequest()->request->get('montant');
+			$piece['type'] = $this->getRequest()->request->get('type_p');
+			$piece['num'] = $this->getRequest()->request->get('num_p');
 			if (is_numeric($montant))
 			{
 				$montant = (float) $montant ;
 				if ($action == "debit")
 				{
 					if ($montant <= $compte->getSolde())
-					{
-					
+					{					
 					$compte->debit($montant);
-					$transaction->setCompte($compte)->setDate(new \DateTime("NOW"))->setMontant($montant)->setType("Retrait")->setDetails("");
-					$this->getDoctrine()->getManager()->persist($compte);
-					$this->getDoctrine()->getManager()->persist($transaction);
-					$this->getDoctrine()->getManager()->flush();
+					$transaction->setCompte($compte)->setDate(new \DateTime("NOW"))->setMontant($montant)->setType("Retrait")->setDetails("");										
 					}else
 					{
 						$erreurs[] = 'Le solde est insuffisant';
@@ -161,10 +203,13 @@ class ComptesController extends Controller {
 				{
 					$compte->credit($montant);
 					$transaction->setCompte($compte)->setDate(new \DateTime("NOW"))->setMontant($montant)->setType("Versement")->setDetails("");
-					$this->getDoctrine()->getManager()->persist($compte);
-					$this->getDoctrine()->getManager()->persist($transaction);
-					$this->getDoctrine()->getManager()->flush();
 				}
+				$notification = Notification::getNotificationFromTransaction($transaction);
+				$this->getDoctrine()->getManager()->persist($notification);
+				$compte->addNotification($notification);
+				$this->getDoctrine()->getManager()->persist($compte);
+				$this->getDoctrine()->getManager()->persist($transaction);
+				$this->getDoctrine()->getManager()->flush();
 			}else
 			{
 				$erreurs[] = 'Le montant doit être numérique';
@@ -174,20 +219,37 @@ class ComptesController extends Controller {
 			{
 				// return recu
 				
-				$html = $this->renderView("FinanceBackOfficeBundle:Comptes:recu.pdf.twig");
+				$html = $this->renderView("FinanceBackOfficeBundle:Comptes:recu.html.twig",array('transaction' => $transaction , 'piece' => $piece));
 				
 				return new Response(
    					 $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
     				 200,
     				 array(
        					 'Content-Type'          => 'application/pdf',
-        				 'Content-Disposition'   => 'attachment; filename="file.pdf"'
-  				  )
-					);
-			}
-			
+        				 'Content-Disposition'   => 'attachment; filename="'.$transaction->getType().'_'.$numCompte.'_'.$transaction->getDate()->format("YmdHis").'.pdf"'
+  				  ));
+			}			
 		}
 		return $this->render("FinanceBackOfficeBundle:Comptes:debit_credit_compte.html.twig",array("compte"=>$compte , "action" => $action , "erreurs" => $erreurs));
+	}
+	
+	/**
+	 * @Route("/releve_bancaire_pdf/{id}",name="releve_bancaire_pdf")
+	 */
+	public function getReleveBancaire($id)
+	{
+	$compte = $this->getDoctrine()->getRepository("FinanceBackOfficeBundle:Compte")->find($id);
+
+	$html = $this->renderView("FinanceBackOfficeBundle:Comptes:releve_bancaire_compte.html.twig",array('compte' => $compte , 'date' => new \DateTime("NOW")));
+	
+	return new Response(
+			$this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+			200,
+			array(
+					'Content-Type'          => 'application/pdf',
+					'Content-Disposition'   => 'attachment; filename="releveBancaire_'.$id.'.pdf"'
+			));
+	
 	}
 	
 	
